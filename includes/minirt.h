@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:50:38 by jmogo             #+#    #+#             */
-/*   Updated: 2020/12/13 19:28:28 by jmogo            ###   ########.fr       */
+/*   Updated: 2020/12/15 12:43:58 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ typedef struct		s_res
 
 typedef struct		s_coord
 {
-	float			x;
-	float			y;
-	float			z;
+	double			x;
+	double			y;
+	double			z;
 }					t_coord;
 
 typedef struct		s_figs
@@ -72,6 +72,7 @@ typedef struct		s_cams
 	struct s_coord	c_crd;
 	struct s_coord	n_crd;
 	int				fov;
+	double			d;
 	struct s_cams	*next;
 	struct s_cams	*prev;
 }					t_cams;
@@ -79,7 +80,7 @@ typedef struct		s_cams
 typedef struct		s_lght
 {
 	struct s_coord	c_crd;
-	float			bright;
+	double			bright;
 	int				clr;
 	struct s_lght	*next;
 }					t_lght;
@@ -87,7 +88,7 @@ typedef struct		s_lght
 typedef struct		s_sp
 {
 	struct s_coord	c_crd;
-	float			diam;
+	double			diam;
 	int				clr;
 }					t_sp;
 
@@ -102,7 +103,7 @@ typedef struct		s_sq
 {
 	struct s_coord	c_crd;
 	struct s_coord	n_crd;
-	float			side;
+	double			side;
 	int				clr;
 }					t_sq;
 
@@ -110,8 +111,8 @@ typedef struct		s_cy
 {
 	struct s_coord	c_crd;
 	struct s_coord	n_crd;
-	float			diam;
-	float			height;
+	double			diam;
+	double			height;
 	int				clr;
 }					t_cy;
 
@@ -131,7 +132,7 @@ void				add_next_lght(t_scene **t, char **s);
 int					check_atoi(char *s);
 int					check_figs(char *s, t_type *type);
 int					free_str(char *s1, char *s2);
-float				ft_atof(char *s);
+double				ft_atof(char *s);
 int					ft_atoi(char *s);
 int					ft_isdigit(char c);
 void				ft_figadd_back(t_scene **t, void *fig, t_type type);

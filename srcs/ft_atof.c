@@ -6,15 +6,15 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 11:54:50 by jmogo             #+#    #+#             */
-/*   Updated: 2020/12/08 10:02:32 by jmogo            ###   ########.fr       */
+/*   Updated: 2020/12/14 18:57:49 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-float			ft_atof(char *s)
+double	ft_atof(char *s)
 {
-	float	ans;
+	double	ans;
 	int		f;
 	int		minus;
 	char	*dot;
