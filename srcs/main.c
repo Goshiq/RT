@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 12:19:51 by jmogo             #+#    #+#             */
-/*   Updated: 2020/12/13 21:05:27 by jmogo            ###   ########.fr       */
+/*   Updated: 2020/12/18 13:25:13 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,13 @@ int		check_figs(char *s, t_type *type)
 
 void	init_scene(t_scene **t)
 {
-	void	*m_mlx;
-
-	if (!(*t = malloc(sizeof(t_scene))) ||
-		!((*t)->res = malloc(sizeof(t_res))) ||
-		!((*t)->figs = malloc(sizeof(t_figs))) ||
-		!((*t)->cams = malloc(sizeof(t_cams))) ||
-		!((*t)->lghts = malloc(sizeof(t_lght))) ||
-		!((*t)->alght = malloc(sizeof(t_lght))))
-		mrt_doerr("Can't allocate memory for the struct\n", 0x0, 0x0);
-	if (!(m_mlx = mlx_init()))
-		mrt_doerr("Couldn't create a mlx-connection\n", 0x0, t);
-	(*t)->m_mlx = m_mlx;
+	mrt_malloc((void **)t, SC, t);
+	mrt_malloc((void **)&((*t)->res), RES, t);
+	mrt_malloc((void **)&((*t)->figs), FIGS, t);
+	mrt_malloc((void **)&((*t)->cams), CAMS, t);
+	mrt_malloc((void **)&((*t)->lghts), LGHTS, t);
+	mrt_malloc((void **)&((*t)->alght), LGHTS, t);
+	(*t)->m_mlx = mlx_init();
 	init_res(&((*t)->res));
 	init_alght(&((*t)->alght));
 	init_cams(&((*t)->cams));
@@ -74,6 +69,7 @@ int		fill_struct(char *s, t_scene **t)
 		add_fig(t, splitted, type);
 	else
 		mrt_doerr("Wrong type identifier:\n", s, t);
+	free_split(splitted);
 	return (ans);
 }
 
@@ -93,9 +89,10 @@ int		mrt_parse_scene(char *s)
 			mrt_doerr("Can't read the scene file:\n", s, 0x0);
 		if (fill_struct(line, &scene))
 			mrt_doerr("Invalid scene file:\n", s, &scene);
+		free(line);
 	}
-	mrt_paint(&scene);
 	close(fd);
+	mrt_paint(&scene);
 	mrt_doerr(0x0, 0x0, &scene);
 	return (0);
 }

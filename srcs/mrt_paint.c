@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 19:26:25 by jmogo             #+#    #+#             */
-/*   Updated: 2020/12/15 13:00:05 by jmogo            ###   ########.fr       */
+/*   Updated: 2020/12/18 18:24:35 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,12 @@ t_coord	CanvasToViewport(double x, double y, double d)
 */
 int		key_hook(int key, void *param)
 {
-	if (!param)
-		if (key == 53)
-			exit(0);
+	t_scene	**t;
+
+	t = (t_scene **)param;
+	if (key == 53)
+		mrt_doerr(0x0, 0x0, (t_scene **)param);
+		//mlx_destroy_window((*t)->m_mlx, (*t)->m_win);
 	return (0);
 }
 
@@ -47,8 +50,8 @@ void	mrt_paint(t_scene **t)
 	//double	clr;
 	//t_coord	D;
 
-	if (!(m_win = mlx_new_window((*t)->m_mlx, (*t)->res->x, (*t)->res->y, "")))
-		mrt_doerr("Can't create the window\n", 0x0, t);
+	m_win = mlx_new_window((*t)->m_mlx, (*t)->res->x, (*t)->res->y, "");
+	//mrt_malloc(&m_win, WIN, t);
 	x = (*t)->res->x / (-2);
 	y = (*t)->res->y / 2;
 	while (x++ < ((*t)->res->x / 2))
@@ -63,6 +66,6 @@ void	mrt_paint(t_scene **t)
 	printf("%f\n", (*t)->cams->c_crd.y);
 	printf("%f\n", (*t)->cams->d);
 	printf("Done\n");
-	mlx_key_hook(m_win, &key_hook, 0x0);
+	mlx_key_hook(m_win, &key_hook, t);
 	mlx_loop((*t)->m_mlx);
 }

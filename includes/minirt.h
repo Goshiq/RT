@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:50:38 by jmogo             #+#    #+#             */
-/*   Updated: 2020/12/15 12:43:58 by jmogo            ###   ########.fr       */
+/*   Updated: 2020/12/18 18:23:46 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,26 @@ typedef enum
 	TR
 }	t_type;
 
+typedef enum
+{
+	SC,
+	RES,
+	FIGS,
+	CAMS,
+	LGHTS,
+	ALGHT,
+	PTR,
+	SPH,
+	PLA,
+	CYL,
+	SQU,
+	TRI
+}	t_mall;
+
 typedef struct		s_scene
 {
 	void			*m_mlx;
+	void			*m_win;
 	struct s_res	*res;
 	struct s_figs	*figs;
 	struct s_cams	*cams;
@@ -131,11 +148,14 @@ void				add_next_cam(t_scene **t, char **s);
 void				add_next_lght(t_scene **t, char **s);
 int					check_atoi(char *s);
 int					check_figs(char *s, t_type *type);
+void				free_lst(t_scene **t);
+int					free_split(char **s);
 int					free_str(char *s1, char *s2);
 double				ft_atof(char *s);
 int					ft_atoi(char *s);
 int					ft_isdigit(char c);
 void				ft_figadd_back(t_scene **t, void *fig, t_type type);
+void				ft_lstadd_back(t_lst **ptr, void *p, t_scene **t);
 size_t				ft_numlen(long n);
 void				ft_putcahr(char c);
 int					ft_putstr(char *s);
@@ -153,6 +173,7 @@ void				init_lghts(t_lght **t);
 void				init_res(t_res **t);
 void				init_scene(t_scene **t);
 int					mrt_doerr(char *s, char *str, t_scene **t);
+void				mrt_malloc(void **p, t_mall type, t_scene **t);
 int					mrt_parse_scene(char *s);
 void				mrt_paint(t_scene **t);
 int					mrt_saveimg(char *s);

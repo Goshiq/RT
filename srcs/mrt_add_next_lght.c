@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 11:44:05 by jmogo             #+#    #+#             */
-/*   Updated: 2020/12/08 12:16:57 by jmogo            ###   ########.fr       */
+/*   Updated: 2020/12/17 18:38:48 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	add_next_lght(t_scene **t, char **s)
 	float	br;
 	t_lght	*lght;
 
-	if (!(lght = malloc(sizeof(t_lght))))
-		mrt_doerr("Can't allocate memory for the new light:\n", s[1], t);
+	lght = 0x0;
+	mrt_malloc((void **)(&lght), LGHTS, t);
 	if (0 > (parse_coord(&(lght->c_crd), s[1])))
 		mrt_doerr("Wrong light's coordinates format:\n", s[1], t);
 	br = atof(s[2]);

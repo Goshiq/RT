@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 15:41:13 by jmogo             #+#    #+#             */
-/*   Updated: 2020/12/08 16:42:24 by jmogo            ###   ########.fr       */
+/*   Updated: 2020/12/18 12:17:49 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ void	parse_cy(t_scene **t, char **s)
 
 	if (!s[1] || !s[2] || !s[3] || !s[4] || !s[5] || s[6])
 		mrt_doerr("Wrong input cylinder format:\n", s[1], t);
-	if (!(cy = malloc(sizeof(t_cy))))
-		mrt_doerr("Can't allocate memory for the cylinder:\n", s[1], t);
+	mrt_malloc((void **)&cy, CYL, t);
 	if (0 > (parse_coord(&(cy->c_crd), s[1])))
 		mrt_doerr("Wrong cylinder's coordinates format:\n", s[1], t);
 	if (0 > (parse_orient(&(cy->n_crd), s[2])))
@@ -47,8 +46,7 @@ void	parse_pl(t_scene **t, char **s)
 
 	if (!s[1] || !s[2] || !s[3] || s[4])
 		mrt_doerr("Wrong input plane format:\n", s[1], t);
-	if (!(pl = malloc(sizeof(t_pl))))
-		mrt_doerr("Can't allocate memory for the plane:\n", s[1], t);
+	mrt_malloc((void **)&pl, PLA, t);
 	if (0 > (parse_coord(&(pl->c_crd), s[1])))
 		mrt_doerr("Wrong plane's coordinates format:\n", s[1], t);
 	if (0 > (parse_orient(&(pl->n_crd), s[2])))
@@ -67,8 +65,7 @@ void	parse_sp(t_scene **t, char **s)
 
 	if (!s[1] || !s[2] || !s[3] || s[4])
 		mrt_doerr("Wrong input sphere format:\n", s[1], t);
-	if (!(sp = malloc(sizeof(t_sp))))
-		mrt_doerr("Can't allocate memory for the sphere:\n", s[1], t);
+	mrt_malloc((void **)&sp, SPH, t);
 	if (0 > (parse_coord(&(sp->c_crd), s[1])))
 		mrt_doerr("Wrong sphere's coordinates format:\n", s[1], t);
 	f = atof(s[2]);
@@ -89,8 +86,7 @@ void	parse_sq(t_scene **t, char **s)
 
 	if (!s[1] || !s[2] || !s[3] || !s[4] || s[5])
 		mrt_doerr("Wrong input square format:\n", s[1], t);
-	if (!(sq = malloc(sizeof(t_sq))))
-		mrt_doerr("Can't allocate memory for the square:\n", s[1], t);
+	mrt_malloc((void **)&sq, SQU, t);
 	if (0 > (parse_coord(&(sq->c_crd), s[1])))
 		mrt_doerr("Wrong square's coordinates format:\n", s[1], t);
 	if (0 > (parse_orient(&(sq->n_crd), s[2])))
@@ -112,8 +108,7 @@ void	parse_tr(t_scene **t, char **s)
 
 	if (!s[1] || !s[2] || !s[3] || !s[4] || s[5])
 		mrt_doerr("Wrong input triangle format:\n", s[1], t);
-	if (!(tr = malloc(sizeof(t_tr))))
-		mrt_doerr("Can't allocate memory for the triangle:\n", s[1], t);
+	mrt_malloc((void **)&tr, TRI, t);
 	if (0 > (parse_coord(&(tr->f_crd), s[1])))
 		mrt_doerr("Wrong triangle's coordinate format:\n", s[1], t);
 	if (0 > (parse_coord(&(tr->s_crd), s[2])))

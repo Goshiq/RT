@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 10:47:05 by jmogo             #+#    #+#             */
-/*   Updated: 2020/12/15 12:51:35 by jmogo            ###   ########.fr       */
+/*   Updated: 2020/12/17 18:21:11 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	add_next_cam(t_scene **t, char **s)
 {
 	t_cams	*cam;
 
-	if (!(cam = malloc(sizeof(t_cams))))
-		mrt_doerr("Can't allocate memory for the new camera:\n", s[1], t);
+	cam = 0x0;
+	mrt_malloc((void **)(&cam), CAMS, t);
 	if (0 > (parse_coord(&(cam->c_crd), s[1])))
 		mrt_doerr("Wrong camera's coordinates format:\n", s[1], t);
 	if (0 > (parse_orient(&(cam->n_crd), s[2])))
