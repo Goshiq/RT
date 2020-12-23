@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:50:38 by jmogo             #+#    #+#             */
-/*   Updated: 2020/12/18 18:23:46 by jmogo            ###   ########.fr       */
+/*   Updated: 2020/12/23 11:36:17 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct		s_cams
 	struct s_coord	n_crd;
 	int				fov;
 	double			d;
+	t_coord			c_scr;
 	struct s_cams	*next;
 	struct s_cams	*prev;
 }					t_cams;
@@ -173,6 +174,7 @@ void				init_lghts(t_lght **t);
 void				init_res(t_res **t);
 void				init_scene(t_scene **t);
 int					mrt_doerr(char *s, char *str, t_scene **t);
+t_coord				mrt_get_c_screen(t_cams *cam);
 void				mrt_malloc(void **p, t_mall type, t_scene **t);
 int					mrt_parse_scene(char *s);
 void				mrt_paint(t_scene **t);
@@ -188,5 +190,9 @@ void				parse_sq(t_scene **t, char **s);
 void				parse_tr(t_scene **t, char **s);
 void				set_alght(t_scene **t, char **s);
 void				set_res(t_scene **t, char **s);
+t_coord				vec_div_scal(t_coord v, double d);
+double				vec_len(t_coord v);
+t_coord				vec_mult_scal(t_coord v, double d);
+t_coord				vec_sum(t_coord v1, t_coord v2);
 
 #endif

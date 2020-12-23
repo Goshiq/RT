@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 10:47:05 by jmogo             #+#    #+#             */
-/*   Updated: 2020/12/17 18:21:11 by jmogo            ###   ########.fr       */
+/*   Updated: 2020/12/23 11:46:09 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	add_next_cam(t_scene **t, char **s)
 	cam->next = (*t)->cams;
 	cam->prev = (*t)->cams->prev;
 	cam->d = (*t)->res->x / (2 * tan(cam->fov * M_PI / 360));
+	cam->c_scr = mrt_get_c_screen(cam);
 	(*t)->cams->prev = cam;
 	if ((*t)->cams->next == (*t)->cams)
 		(*t)->cams->next = cam;

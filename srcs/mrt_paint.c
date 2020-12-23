@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 19:26:25 by jmogo             #+#    #+#             */
-/*   Updated: 2020/12/18 18:24:35 by jmogo            ###   ########.fr       */
+/*   Updated: 2020/12/23 09:48:00 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,8 @@ void	mrt_paint(t_scene **t)
 		}
 		y = (*t)->res->y / 2;
 	}
-	printf("%f\n", (*t)->cams->c_crd.x);
-	printf("%f\n", (*t)->cams->c_crd.y);
-	printf("%f\n", (*t)->cams->d);
+	//printf("%f\n", vec_len((*t)->cams->c_crd));
 	printf("Done\n");
-	mlx_key_hook(m_win, &key_hook, t);
+	//mlx_key_hook(m_win, &key_hook, t);
 	mlx_loop((*t)->m_mlx);
 }
