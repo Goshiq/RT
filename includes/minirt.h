@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:50:38 by jmogo             #+#    #+#             */
-/*   Updated: 2020/12/23 11:36:17 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/01 19:15:56 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct		s_scene
 	struct s_lght	*lghts;
 	struct s_lght	*alght;
 	struct s_lst	*ptr;
+	int				fd;
 }					t_scene;
 
 typedef struct		s_lst
@@ -91,6 +92,8 @@ typedef struct		s_cams
 	int				fov;
 	double			d;
 	t_coord			c_scr;
+	t_coord			px;
+	t_coord			py;
 	struct s_cams	*next;
 	struct s_cams	*prev;
 }					t_cams;
@@ -149,6 +152,7 @@ void				add_next_cam(t_scene **t, char **s);
 void				add_next_lght(t_scene **t, char **s);
 int					check_atoi(char *s);
 int					check_figs(char *s, t_type *type);
+t_coord				dots_to_vec(t_coord a, t_coord b);
 void				free_lst(t_scene **t);
 int					free_split(char **s);
 int					free_str(char *s1, char *s2);
@@ -167,12 +171,14 @@ char				*ft_strchr(char *s, char c);
 char				*ft_strdup(char *s);
 char				*ft_strjoin(char *s1, char *s2);
 int					get_next_line(int fd, char **line);
+void				get_scr_param(t_cams *c, t_res *res);
 void				init_alght(t_lght **t);
 void				init_cams(t_cams **t);
 void				init_figs(t_figs **t);
 void				init_lghts(t_lght **t);
 void				init_res(t_res **t);
 void				init_scene(t_scene **t);
+t_coord				loc_to_glob(int x, int y, t_cams *c);
 int					mrt_doerr(char *s, char *str, t_scene **t);
 t_coord				mrt_get_c_screen(t_cams *cam);
 void				mrt_malloc(void **p, t_mall type, t_scene **t);
@@ -188,11 +194,15 @@ void				parse_pl(t_scene **t, char **s);
 void				parse_sp(t_scene **t, char **s);
 void				parse_sq(t_scene **t, char **s);
 void				parse_tr(t_scene **t, char **s);
+t_coord				pnts_to_vec(double x, double y, double z);
 void				set_alght(t_scene **t, char **s);
 void				set_res(t_scene **t, char **s);
 t_coord				vec_div_scal(t_coord v, double d);
 double				vec_len(t_coord v);
 t_coord				vec_mult_scal(t_coord v, double d);
+t_coord				vec_mult_vec(t_coord v1, t_coord v2);
+void				vec_norm(t_coord *v);
+t_coord				vec_substr(t_coord v1, t_coord v2);
 t_coord				vec_sum(t_coord v1, t_coord v2);
 
 #endif

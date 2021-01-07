@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:26:04 by jmogo             #+#    #+#             */
-/*   Updated: 2020/12/23 11:40:38 by jmogo            ###   ########.fr       */
+/*   Updated: 2020/12/27 23:16:38 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,7 @@ void	add_cam(t_scene **t, char **s)
 			mrt_doerr("Wrong camera's orientation format:\n", s[2], t);
 		if (0 > (parse_fov(&((*t)->cams->fov), s[3])))
 			mrt_doerr("Wrong camera's FOV format:\n", s[3], t);
-		(*t)->cams->d = (*t)->res->x / (2 * tan((*t)->cams->fov * M_PI / 360));
-		(*t)->cams->c_scr = mrt_get_c_screen((*t)->cams);
+		get_scr_param((*t)->cams, (*t)->res);
 		(*t)->cams->next = (*t)->cams;
 		(*t)->cams->prev = (*t)->cams;
 	}

@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 12:19:51 by jmogo             #+#    #+#             */
-/*   Updated: 2020/12/23 07:52:45 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/01 19:18:14 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,8 @@ void	init_scene(t_scene **t)
 int		fill_struct(char *s, t_scene **t)
 {
 	char	**splitted;
-	int		ans;
 	t_type	type;
 
-	ans = 0;
 	type = DEF;
 	if (!(splitted = ft_split(s, ' ')))
 		return (-1);
@@ -70,7 +68,7 @@ int		fill_struct(char *s, t_scene **t)
 	else
 		mrt_doerr("Wrong type identifier:\n", s, t);
 	free_split(splitted);
-	return (ans);
+	return (0);
 }
 
 int		mrt_parse_scene(char *s)
@@ -83,6 +81,7 @@ int		mrt_parse_scene(char *s)
 	init_scene(&scene);
 	if (!(fd = open(s, O_RDONLY)))
 		mrt_doerr("Can't open the scene file:\n", s, 0x0);
+	scene->fd = fd;
 	while ((check = get_next_line(fd, &line)))
 	{
 		if (check < 0)
@@ -91,7 +90,6 @@ int		mrt_parse_scene(char *s)
 			mrt_doerr("Invalid scene file:\n", s, &scene);
 		free(line);
 	}
-	close(fd);
 	mrt_paint(&scene);
 	mrt_doerr(0x0, 0x0, &scene);
 	return (0);

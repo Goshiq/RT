@@ -6,11 +6,21 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 10:47:05 by jmogo             #+#    #+#             */
-/*   Updated: 2020/12/23 11:46:09 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/02 19:08:11 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+void	mrt_add_cam_back(t_cams *cams, t_cams *new)
+{
+	t_cams	*tmp;
+
+	tmp = cams->next;
+	while (tmp->next != cams)
+		tmp = tmp->next;
+	tmp->next = new;
+}
 
 void	add_next_cam(t_scene **t, char **s)
 {
@@ -26,9 +36,10 @@ void	add_next_cam(t_scene **t, char **s)
 		mrt_doerr("Wrong camera's FOV format:\n", s[3], t);
 	cam->next = (*t)->cams;
 	cam->prev = (*t)->cams->prev;
-	cam->d = (*t)->res->x / (2 * tan(cam->fov * M_PI / 360));
-	cam->c_scr = mrt_get_c_screen(cam);
-	(*t)->cams->prev = cam;
+	get_scr_param(cam, (*t)->res);
 	if ((*t)->cams->next == (*t)->cams)
 		(*t)->cams->next = cam;
+	else
+		mrt_add_cam_back((*t)->cams, cam);
+	(*t)->cams->prev = cam;
 }

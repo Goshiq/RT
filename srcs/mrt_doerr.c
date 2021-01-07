@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 16:25:09 by jmogo             #+#    #+#             */
-/*   Updated: 2020/12/23 08:42:22 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/01 19:34:14 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	free_lst(t_scene **t)
 	prev = (*t)->ptr;
 	while (prev->next)
 	{
-		printf("???\n");
 		tofree = prev;
 		prev = prev->next;
 		free(tofree->ptr);
@@ -28,7 +27,6 @@ void	free_lst(t_scene **t)
 	}
 	if (prev)
 	{
-		printf("!!!\n");
 		free(prev->ptr);
 		free(prev);
 	}
@@ -36,12 +34,17 @@ void	free_lst(t_scene **t)
 
 int		mrt_doerr(char *s, char *str, t_scene **t)
 {
-	free_lst(t);
+	if (t)
+	{
+		free_lst(t);
+		close((*t)->fd);
+	}
 	if (s)
 	{
 		ft_putstr("Error\n");
 		ft_putstr(s);
-		ft_putstr(str);
+		if (str)
+			ft_putstr(str);
 	}
 	if (!s)
 		exit(0);
