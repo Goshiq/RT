@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:50:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/01 19:15:56 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/07 14:53:24 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ double				vec_len(t_coord v);
 t_coord				vec_mult_scal(t_coord v, double d);
 t_coord				vec_mult_vec(t_coord v1, t_coord v2);
 void				vec_norm(t_coord *v);
+double				vec_scal_vec(t_coord v1, t_coord v2);
 t_coord				vec_substr(t_coord v1, t_coord v2);
 t_coord				vec_sum(t_coord v1, t_coord v2);
 
