@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 19:26:25 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/09 16:40:27 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/10 10:24:28 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int		cross_sp(t_scene **t, t_coord cd, t_sp *sp, double *c_min)
 	c = (*t)->cams->c_crd;
 	s = sp->c_crd;
 	cs = dots_to_vec(c, s);
+	if (vec_scal_vec(cs, cd) < 0)
+		return (0);
 	rad = sp->diam / 2;
 	cross = vec_len(vec_mult_vec(cs, cd)) / vec_len(cd);
 	if (cross < rad)

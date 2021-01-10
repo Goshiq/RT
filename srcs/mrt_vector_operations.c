@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 08:46:24 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/07 14:53:34 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/10 11:57:14 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_coord	dots_to_vec(t_coord a, t_coord b)
 
 void	vec_norm(t_coord *v)
 {
-	*v = vec_div_scal(*v, vec_len(*v));	
+	*v = vec_div_scal(*v, vec_len(*v));
 }
 
 t_coord	vec_mult_vec(t_coord v1, t_coord v2)

@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 11:22:29 by jmogo             #+#    #+#             */
-/*   Updated: 2020/12/30 12:57:01 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/10 11:57:32 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 t_coord	loc_to_glob(int x, int y, t_cams *c)
 {
 	t_coord	ans;
-	
-	/* PA = px * x + py * y */
+
 	ans = vec_sum(vec_mult_scal(c->px, x), vec_mult_scal(c->py, y));
-	/* OA = OP + PA */
 	ans = vec_sum(c->c_scr, ans);
 	return (ans);
 }
