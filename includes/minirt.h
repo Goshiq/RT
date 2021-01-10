@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:50:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/07 14:53:24 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/09 16:22:03 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,13 @@ typedef struct		s_res
 	int				y;
 }					t_res;
 
+typedef struct		s_clr
+{
+	int				r;
+	int				g;
+	int				b;
+}					t_clr;
+
 typedef struct		s_coord
 {
 	double			x;
@@ -102,7 +109,7 @@ typedef struct		s_lght
 {
 	struct s_coord	c_crd;
 	double			bright;
-	int				clr;
+	t_clr			clr;
 	struct s_lght	*next;
 }					t_lght;
 
@@ -110,14 +117,14 @@ typedef struct		s_sp
 {
 	struct s_coord	c_crd;
 	double			diam;
-	int				clr;
+	t_clr			clr;
 }					t_sp;
 
 typedef struct		s_pl
 {
 	struct s_coord	c_crd;
 	struct s_coord	n_crd;
-	int				clr;
+	t_clr			clr;
 }					t_pl;
 
 typedef struct		s_sq
@@ -125,7 +132,7 @@ typedef struct		s_sq
 	struct s_coord	c_crd;
 	struct s_coord	n_crd;
 	double			side;
-	int				clr;
+	t_clr			clr;
 }					t_sq;
 
 typedef struct		s_cy
@@ -134,7 +141,7 @@ typedef struct		s_cy
 	struct s_coord	n_crd;
 	double			diam;
 	double			height;
-	int				clr;
+	t_clr			clr;
 }					t_cy;
 
 typedef struct		s_tr
@@ -142,14 +149,16 @@ typedef struct		s_tr
 	struct s_coord	f_crd;
 	struct s_coord	s_crd;
 	struct s_coord	t_crd;
-	int				clr;
+	t_clr			clr;
 }					t_tr;
 
 void				add_cam(t_scene **t, char **s);
+t_clr				add_clr(t_clr c1, t_clr c2);
 void				add_fig(t_scene **t, char **s, t_type type);
 void				add_lght(t_scene **t, char **s);
 void				add_next_cam(t_scene **t, char **s);
 void				add_next_lght(t_scene **t, char **s);
+int					calc_col(t_scene **t, t_sp *sp, t_coord d);
 int					check_atoi(char *s);
 int					check_figs(char *s, t_type *type);
 t_coord				dots_to_vec(t_coord a, t_coord b);
@@ -185,7 +194,7 @@ void				mrt_malloc(void **p, t_mall type, t_scene **t);
 int					mrt_parse_scene(char *s);
 void				mrt_paint(t_scene **t);
 int					mrt_saveimg(char *s);
-int					parse_color(char *s);
+t_clr				parse_color(char *s, float br);
 int					parse_coord(t_coord *c, char *s);
 void				parse_cy(t_scene **t, char **s);
 int					parse_fov(int *fov, char *s);

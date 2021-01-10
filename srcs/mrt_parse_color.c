@@ -6,36 +6,46 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 16:45:12 by jmogo             #+#    #+#             */
-/*   Updated: 2020/12/18 11:45:46 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/09 14:04:14 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	parse_color(char *s)
+t_clr	err_col(char **str)
 {
-	int		ans;
+	t_clr	ans;
+
+	ans.r = -1;
+	free_split(str);
+	return (ans);
+}
+
+t_clr	parse_color(char *s, float br)
+{
+	t_clr	ans;
 	int		tmp;
 	char	**clrs;
 
+	ans.r = -1;
 	if (!(clrs = ft_split(s, ',')))
-		return (-1);
+		return (ans);
 	if (!clrs[0] || !clrs[1] || !clrs[2] || ft_strlen(s) > 11)
-		return (free_split(clrs));
+		return (err_col(clrs));
 	tmp = ft_atoi(clrs[0]);
 	if (tmp < 0 || tmp > 255)
-		return (free_split(clrs));
-	ans = tmp << 16;
+		return (err_col(clrs));
+	ans.r = tmp * br;
 	tmp = ft_atoi(clrs[1]);
 	if (tmp < 0 || tmp > 255)
-		return (free_split(clrs));
-	ans += tmp << 8;
+		return (err_col(clrs));
+	ans.g = tmp * br;
 	tmp = ft_atoi(clrs[2]);
 	if (tmp < 0 || tmp > 255)
-		return (free_split(clrs));
-	ans += tmp;
+		return (err_col(clrs));
+	ans.b = tmp * br;
 	if (clrs[3])
-		return (free_split(clrs));
+		return (err_col(clrs));
 	free_split(clrs);
 	return (ans);
 }

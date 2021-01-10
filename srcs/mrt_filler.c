@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:26:04 by jmogo             #+#    #+#             */
-/*   Updated: 2020/12/27 23:16:38 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/09 14:00:28 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	set_res(t_scene **t, char **s)
 
 void	set_alght(t_scene **t, char **s)
 {
-	int		clr;
+	t_clr	clr;
 	float	br;
 
 	if (0 < (*t)->alght->bright)
@@ -51,7 +51,8 @@ void	set_alght(t_scene **t, char **s)
 	if (br < 0 || br > 1)
 		mrt_doerr("Wrong ambient lightning brightness:\n", s[1], t);
 	(*t)->alght->bright = br;
-	if (0 > (clr = parse_color(s[2])))
+	clr = parse_color(s[2], br);
+	if (0 > clr.r)
 		mrt_doerr("Wrong ambient lightning color:\n", s[2], t);
 	(*t)->alght->clr = clr;
 }
@@ -78,7 +79,7 @@ void	add_cam(t_scene **t, char **s)
 
 void	add_lght(t_scene **t, char **s)
 {
-	int		clr;
+	t_clr	clr;
 	float	br;
 
 	if (!s[1] || !s[2] || !s[3] || s[4])
@@ -91,7 +92,8 @@ void	add_lght(t_scene **t, char **s)
 		if (br < 0 || br > 1)
 			mrt_doerr("Wrong light brightness:\n", s[2], t);
 		(*t)->lghts->bright = br;
-		if (0 > (clr = parse_color(s[3])))
+		clr = parse_color(s[3], br);
+		if (0 > clr.r)
 			mrt_doerr("Wrong light color:\n", s[3], t);
 		(*t)->lghts->clr = clr;
 	}
