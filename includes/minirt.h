@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:50:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/09 16:22:03 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/11 12:08:17 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,6 +206,7 @@ void				parse_tr(t_scene **t, char **s);
 t_coord				pnts_to_vec(double x, double y, double z);
 void				set_alght(t_scene **t, char **s);
 void				set_res(t_scene **t, char **s);
+t_clr				use_bright(t_clr clr, double br);
 t_coord				vec_div_scal(t_coord v, double d);
 double				vec_len(t_coord v);
 t_coord				vec_mult_scal(t_coord v, double d);
