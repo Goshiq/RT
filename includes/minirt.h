@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:50:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/12 14:58:52 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/12 15:13:38 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,11 @@ typedef struct		s_coord
 	double			z;
 }					t_coord;
 
-typedef struct		s_doub
+typedef struct		s_ans
 {
 	double			d;
 	struct s_coord	s;
-}					t_doub;
+}					t_ans;
 
 typedef struct		s_figs
 {
