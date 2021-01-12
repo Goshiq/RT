@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 12:19:51 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/01 19:18:14 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/12 09:45:39 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,22 +76,23 @@ int		mrt_parse_scene(char *s)
 	int		fd;
 	char	*line;
 	int		check;
-	t_scene	*scene;
+	t_scene	*sc;
 
-	init_scene(&scene);
+	init_scene(&sc);
 	if (!(fd = open(s, O_RDONLY)))
-		mrt_doerr("Can't open the scene file:\n", s, 0x0);
-	scene->fd = fd;
+		mrt_doerr("Can't open the sc file:\n", s, 0x0);
+	sc->fd = fd;
 	while ((check = get_next_line(fd, &line)))
 	{
 		if (check < 0)
-			mrt_doerr("Can't read the scene file:\n", s, 0x0);
-		if (fill_struct(line, &scene))
-			mrt_doerr("Invalid scene file:\n", s, &scene);
+			mrt_doerr("Can't read the sc file:\n", s, 0x0);
+		if (fill_struct(line, &sc))
+			mrt_doerr("Invalid sc file:\n", s, &sc);
 		free(line);
 	}
-	mrt_paint(&scene);
-	mrt_doerr(0x0, 0x0, &scene);
+	sc->m_win = mlx_new_window(sc->m_mlx, sc->res->x, sc->res->y, "");
+	mrt_paint(&sc);
+	mrt_doerr(0x0, 0x0, &sc);
 	return (0);
 }
 

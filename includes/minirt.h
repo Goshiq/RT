@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:50:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/11 12:08:17 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/12 14:58:52 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,12 @@ typedef struct		s_coord
 	double			y;
 	double			z;
 }					t_coord;
+
+typedef struct		s_doub
+{
+	double			d;
+	struct s_coord	s;
+}					t_doub;
 
 typedef struct		s_figs
 {
@@ -179,6 +185,7 @@ size_t				ft_strlen(char *s);
 char				*ft_strchr(char *s, char c);
 char				*ft_strdup(char *s);
 char				*ft_strjoin(char *s1, char *s2);
+int					get_clr(t_scene **t, t_cams cam, t_coord d);
 int					get_next_line(int fd, char **line);
 void				get_scr_param(t_cams *c, t_res *res);
 void				init_alght(t_lght **t);
@@ -189,6 +196,7 @@ void				init_res(t_res **t);
 void				init_scene(t_scene **t);
 t_coord				loc_to_glob(int x, int y, t_cams *c);
 int					mrt_doerr(char *s, char *str, t_scene **t);
+void				mrt_clear_win(t_scene **t);
 t_coord				mrt_get_c_screen(t_cams *cam);
 void				mrt_malloc(void **p, t_mall type, t_scene **t);
 int					mrt_parse_scene(char *s);
