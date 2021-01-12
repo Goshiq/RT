@@ -6,63 +6,43 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 19:26:25 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/12 14:57:14 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/12 19:41:29 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int		cross_sp(t_scene **t, t_coord cd, t_sp *sp, double *c_min)
+void	recognize_figs(t_scene **t, t_coord d, t_figs *fig, t_ans *ans)
 {
-	t_coord	s;
-	t_coord	c;
-	t_coord	cs;
-	double	cross;
-	double	rad;
-
-	c = (*t)->cams->c_crd;
-	s = sp->c_crd;
-	cs = dots_to_vec(c, s);
-	if (vec_scal_vec(cs, cd) < 0)
-		return (0);
-	rad = sp->diam / 2;
-	cross = vec_len(vec_mult_vec(cs, cd)) / vec_len(cd);
-	if (cross < rad)
-	{
-		*c_min = sqrt(pow(vec_len(cs), 2) - pow(cross, 2)) -
-					sqrt(pow(rad, 2) - pow(cross, 2));
-		rad = *c_min / vec_len(cd);
-		cd = vec_mult_scal(cd, rad);
-		s = vec_sum(cd, c);
-		return (calc_col(t, sp, s));
-	}
-	return (0);
+	if (fig->type == SP)
+		cross_sp(t, d, (t_sp *)(fig->data), ans);
 }
 
 int		get_clr(t_scene **t, t_cams cam, t_coord d)
 {
 	double	c_min;
-	double	dist;
+	t_ans	*ans;
 	int		clr;
-	int		tmpclr;
 	t_figs	*fig;
 
 	clr = 0;
 	fig = (*t)->figs;
 	c_min = INFINITY;
 	d = dots_to_vec(cam.c_crd, d);
+	ans = malloc(sizeof(t_ans));
+	ans->fig = malloc(sizeof(t_figs));
 	while (fig)
 	{
-		dist = INFINITY;
-		if (fig->type == SP)
-			tmpclr = cross_sp(t, d, (t_sp *)fig->data, &dist);
-		if (dist < c_min)
+		ans->d = INFINITY;
+		recognize_figs(t, d, fig, ans);
+		if (ans->d < c_min)
 		{
-			c_min = dist;
-			clr = tmpclr;
+			c_min = ans->d;
+			calc_col(t, ans, &clr);
 		}
 		fig = fig->next;
 	}
+	free_ans(ans);
 	return (clr);
 }
 

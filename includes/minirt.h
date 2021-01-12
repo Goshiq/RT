@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:50:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/12 15:13:38 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/12 19:35:37 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <stdarg.h>
 
 typedef enum
 {
@@ -43,7 +44,8 @@ typedef enum
 	PLA,
 	CYL,
 	SQU,
-	TRI
+	TRI,
+	ANS
 }	t_mall;
 
 typedef struct		s_scene
@@ -84,12 +86,6 @@ typedef struct		s_coord
 	double			y;
 	double			z;
 }					t_coord;
-
-typedef struct		s_ans
-{
-	double			d;
-	struct s_coord	s;
-}					t_ans;
 
 typedef struct		s_figs
 {
@@ -158,17 +154,27 @@ typedef struct		s_tr
 	t_clr			clr;
 }					t_tr;
 
+typedef struct		s_ans
+{
+	double			d;
+	t_coord			s;
+	t_figs			*fig;
+}					t_ans;
+
 void				add_cam(t_scene **t, char **s);
 t_clr				add_clr(t_clr c1, t_clr c2);
 void				add_fig(t_scene **t, char **s, t_type type);
 void				add_lght(t_scene **t, char **s);
 void				add_next_cam(t_scene **t, char **s);
 void				add_next_lght(t_scene **t, char **s);
-int					calc_col(t_scene **t, t_sp *sp, t_coord d);
+void				calc_col(t_scene **t, t_ans *ans, int *clr);
+double				calc_col_sp(t_ans *ans, t_lght *light, t_clr *clr);
 int					check_atoi(char *s);
 int					check_figs(char *s, t_type *type);
+void				cross_sp(t_scene **t, t_coord cd, t_sp *sp, t_ans *ans);
 t_coord				dots_to_vec(t_coord a, t_coord b);
 void				free_lst(t_scene **t);
+void				free_ans(t_ans *ans);
 int					free_split(char **s);
 int					free_str(char *s1, char *s2);
 double				ft_atof(char *s);
@@ -212,6 +218,8 @@ void				parse_sp(t_scene **t, char **s);
 void				parse_sq(t_scene **t, char **s);
 void				parse_tr(t_scene **t, char **s);
 t_coord				pnts_to_vec(double x, double y, double z);
+void				recognize_figs(t_scene **t, t_coord d, t_figs *fig,
+									t_ans *ans);
 void				set_alght(t_scene **t, char **s);
 void				set_res(t_scene **t, char **s);
 t_clr				use_bright(t_clr clr, double br);

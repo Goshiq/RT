@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 16:45:12 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/12 11:27:15 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/12 19:19:01 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,17 @@ t_clr	parse_color(char *s, float br)
 	tmp = ft_atoi(clrs[0]);
 	if (tmp < 0 || tmp > 255)
 		return (err_col(clrs));
-	ans.r = tmp;
+	ans.r = tmp * br;
 	tmp = ft_atoi(clrs[1]);
 	if (tmp < 0 || tmp > 255)
 		return (err_col(clrs));
-	ans.g = tmp;
+	ans.g = tmp * br;
 	tmp = ft_atoi(clrs[2]);
 	if (tmp < 0 || tmp > 255)
 		return (err_col(clrs));
-	ans.b = tmp;
+	ans.b = tmp * br;
 	if (clrs[3])
 		return (err_col(clrs));
 	free_split(clrs);
-	ans = use_bright(ans, br);
 	return (ans);
 }

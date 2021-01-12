@@ -6,11 +6,17 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 16:28:13 by jmogo             #+#    #+#             */
-/*   Updated: 2020/12/23 07:52:11 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/12 19:17:46 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+void	free_ans(t_ans *ans)
+{
+	free(ans->fig);
+	free(ans);
+}
 
 void	ft_lstadd_back(t_lst **ptr, void *p, t_scene **t)
 {
