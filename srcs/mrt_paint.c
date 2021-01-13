@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 19:26:25 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/12 19:41:29 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/13 08:56:49 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,25 +63,25 @@ int		key_hook(int key, void *param)
 
 void	mrt_paint(t_scene **t)
 {
-	double	x, resx;
-	double	y, resy;
+	t_doub	res;
+	t_doub	xy;
 	int		clr;
 	t_coord	d;
 
-	resx = (*t)->res->x / 2;
-	resy = (*t)->res->y / 2;
-	x = 0;
-	y = 0;
+	res.x = (*t)->res->x / 2;
+	res.y = (*t)->res->y / 2;
+	xy.x = 0;
+	xy.y = 0;
 	mrt_clear_win(t);
-	while (x++ < resx * 2)
+	while (xy.x++ < res.x * 2)
 	{
-		while (y++ < resy * 2)
+		while (xy.y++ < res.y * 2)
 		{
-			d = loc_to_glob(x - 1 - resx, resy - y + 1, (*t)->cams);
+			d = loc_to_glob(xy.x - 1 - res.x, res.y - xy.y + 1, (*t)->cams);
 			if (0 < (clr = get_clr(t, *((*t)->cams), d)))
-				mlx_pixel_put((*t)->m_mlx, (*t)->m_win, x - 1, y - 1, clr);
+				mlx_pixel_put((*t)->m_mlx, (*t)->m_win, xy.x, xy.y, clr);
 		}
-		y = 0;
+		xy.y = 0;
 	}
 	printf("Done\n");
 	mlx_key_hook((*t)->m_win, &key_hook, t);

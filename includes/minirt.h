@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:50:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/12 19:35:37 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/13 08:55:38 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,12 @@ typedef struct		s_scene
 	struct s_lst	*ptr;
 	int				fd;
 }					t_scene;
+
+typedef struct		s_doub
+{
+	double			x;
+	double			y;
+}					t_doub;
 
 typedef struct		s_lst
 {

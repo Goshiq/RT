@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 19:30:05 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/12 19:41:32 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/13 08:56:51 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,5 @@ void	cross_sp(t_scene **t, t_coord cd, t_sp *sp, t_ans *ans)
 		ans->fig->data = (void *)sp;
 		ans->fig->type = SP;
 		ans->fig->next = 0x0;
-
 	}
 }
