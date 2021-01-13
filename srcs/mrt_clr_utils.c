@@ -6,22 +6,12 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 14:22:06 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/13 13:04:48 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/13 18:30:15 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#define COEF 3
-
-t_clr	get_clr_fig(t_ans *ans)
-{
-	t_clr	tmp;
-
-	tmp.r = 0;
-	if (ans->fig->type == SP)
-		tmp = ((t_sp *)(ans->fig->data))->clr;
-	return (tmp);
-}
+#define COEF 1
 
 int		rgb_to_int(t_clr clr)
 {
@@ -66,10 +56,12 @@ t_clr	use_bright(t_clr clr, double br)
 void	calc_col(t_scene **t, t_ans *ans, int *clr)
 {
 	t_clr	tmp;
+	t_clr	tmp_lgt;
 	double	v_tmp;
 	t_lght	*light;
 
-	tmp.r = 0;
+	tmp = make_clr(0, 0, 0);
+	tmp_lgt = make_clr(0, 0, 0);
 	v_tmp = 0.0;
 	light = (*t)->lghts;
 	tmp = get_clr_fig(ans);
@@ -78,9 +70,9 @@ void	calc_col(t_scene **t, t_ans *ans, int *clr)
 	while (light)
 	{
 		v_tmp = get_angle(ans, light);
-		if (v_tmp > 0)
-			tmp = add_clr(tmp, use_bright(light->clr, v_tmp));
+		tmp_lgt = add_clr(tmp_lgt, use_bright(light->clr, v_tmp));
 		light = light->next;
 	}
+	tmp = add_clr(tmp, tmp_lgt);
 	*clr = rgb_to_int(tmp);
 }

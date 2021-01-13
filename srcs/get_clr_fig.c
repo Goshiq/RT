@@ -1,36 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mrt_get_angle.c                                    :+:      :+:    :+:   */
+/*   get_clr_fig.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/13 10:24:20 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/13 17:29:37 by jmogo            ###   ########.fr       */
+/*   Created: 2021/01/13 17:30:06 by jmogo             #+#    #+#             */
+/*   Updated: 2021/01/13 17:31:30 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double	get_angle(t_ans *ans, t_lght *light)
+t_clr	get_clr_fig(t_ans *ans)
 {
-	double	res;
+	t_clr	tmp;
 
-	res = 0.0;
+	tmp.r = 0;
 	if (ans->fig->type == SP)
-		res = calc_ang_sp(ans, light);
-	return (res);
+		tmp = ((t_sp *)(ans->fig->data))->clr;
+	return (tmp);
 }
 
-double	calc_ang_sp(t_ans *ans, t_lght *light)
+t_clr	make_clr(int r, int g, int b)
 {
-	double	res;
-	t_coord	dl;
-	t_coord	n;
+	t_clr	res;
 
-	n = dots_to_vec(((t_sp *)(ans->fig->data))->c_crd, ans->s);
-	vec_norm(&n);
-	dl = dots_to_vec(ans->s, light->c_crd);
-	res = vec_scal_vec(n, dl) / vec_len(dl);
+	res.r = r;
+	res.g = g;
+	res.b = b;
 	return (res);
 }
