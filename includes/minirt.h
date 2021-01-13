@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:50:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/13 08:55:38 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/13 10:27:32 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ void				add_lght(t_scene **t, char **s);
 void				add_next_cam(t_scene **t, char **s);
 void				add_next_lght(t_scene **t, char **s);
 void				calc_col(t_scene **t, t_ans *ans, int *clr);
-double				calc_col_sp(t_ans *ans, t_lght *light, t_clr *clr);
+double				calc_ang_sp(t_ans *ans, t_lght *light);
 int					check_atoi(char *s);
 int					check_figs(char *s, t_type *type);
 void				cross_sp(t_scene **t, t_coord cd, t_sp *sp, t_ans *ans);
@@ -197,6 +197,7 @@ size_t				ft_strlen(char *s);
 char				*ft_strchr(char *s, char c);
 char				*ft_strdup(char *s);
 char				*ft_strjoin(char *s1, char *s2);
+double				get_angle(t_ans *ans, t_lght *light);
 int					get_clr(t_scene **t, t_cams cam, t_coord d);
 int					get_next_line(int fd, char **line);
 void				get_scr_param(t_cams *c, t_res *res);
