@@ -6,12 +6,41 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 14:22:06 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/13 18:30:15 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/16 10:09:01 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#define COEF 1
+#define COEF 4
+
+void	calc_br(t_scene **t, t_ans *ans, t_clr *clr)
+{
+	double	br;
+	t_lght	*light;
+	t_ans	*shad;
+	t_two	dd;
+
+	shad = malloc(sizeof(t_ans));
+	dd.c1 = ans->s;
+	light = (*t)->lghts;
+	*clr = make_clr(0, 0, 0);
+	while (light)
+	{
+		shad->d = INFINITY;
+		dd.c2 = dots_to_vec(ans->s, light->c_crd);
+		find_cross(t, dd, shad);
+		if (shad->d < INFINITY && shad->d < vec_len(dd.c2))
+		{
+			light = light->next;
+			continue ;
+		}
+		br = get_angle(ans, light) * light->bright;
+		if (br > 0)
+			*clr = add_clr(*clr, use_bright(light->clr, br));
+		light = light->next;
+	}
+	free(shad);
+}
 
 int		rgb_to_int(t_clr clr)
 {
@@ -53,26 +82,13 @@ t_clr	use_bright(t_clr clr, double br)
 	return (ans);
 }
 
-void	calc_col(t_scene **t, t_ans *ans, int *clr)
+int		calc_col(t_scene **t, t_ans *ans, t_clr clr)
 {
 	t_clr	tmp;
-	t_clr	tmp_lgt;
-	double	v_tmp;
-	t_lght	*light;
 
 	tmp = make_clr(0, 0, 0);
-	tmp_lgt = make_clr(0, 0, 0);
-	v_tmp = 0.0;
-	light = (*t)->lghts;
 	tmp = get_clr_fig(ans);
 	tmp = use_bright(tmp, (*t)->alght->bright);
-	tmp = add_clr(tmp, (*t)->alght->clr);
-	while (light)
-	{
-		v_tmp = get_angle(ans, light);
-		tmp_lgt = add_clr(tmp_lgt, use_bright(light->clr, v_tmp));
-		light = light->next;
-	}
-	tmp = add_clr(tmp, tmp_lgt);
-	*clr = rgb_to_int(tmp);
+	tmp = add_clr(tmp, clr);
+	return (rgb_to_int(tmp));
 }

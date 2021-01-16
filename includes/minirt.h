@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:50:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/13 18:30:09 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/15 20:52:05 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,18 +167,27 @@ typedef struct		s_ans
 	t_figs			*fig;
 }					t_ans;
 
+typedef struct		s_two
+{
+	t_coord			c1;
+	t_coord			c2;
+}					t_two;
+
 void				add_cam(t_scene **t, char **s);
 t_clr				add_clr(t_clr c1, t_clr c2);
 void				add_fig(t_scene **t, char **s, t_type type);
 void				add_lght(t_scene **t, char **s);
 void				add_next_cam(t_scene **t, char **s);
 void				add_next_lght(t_scene **t, char **s);
-void				calc_col(t_scene **t, t_ans *ans, int *clr);
+void				calc_br(t_scene **t, t_ans *ans, t_clr *clr);
+int					calc_col(t_scene **t, t_ans *ans, t_clr clr);
 double				calc_ang_sp(t_ans *ans, t_lght *light);
 int					check_atoi(char *s);
 int					check_figs(char *s, t_type *type);
-void				cross_sp(t_scene **t, t_coord cd, t_sp *sp, t_ans *ans);
+void				cross_pl(t_scene **t, t_two cd, t_pl *pl, t_ans *ans);
+void				cross_sp(t_scene **t, t_two cd, t_sp *sp, t_ans *ans);
 t_coord				dots_to_vec(t_coord a, t_coord b);
+void				find_cross(t_scene **t, t_two d, t_ans *ans);
 void				free_lst(t_scene **t);
 void				free_ans(t_ans *ans);
 int					free_split(char **s);
@@ -198,7 +207,7 @@ char				*ft_strchr(char *s, char c);
 char				*ft_strdup(char *s);
 char				*ft_strjoin(char *s1, char *s2);
 double				get_angle(t_ans *ans, t_lght *light);
-int					get_clr(t_scene **t, t_cams cam, t_coord d);
+int					get_clr(t_scene **t, t_coord d);
 t_clr				get_clr_fig(t_ans *ans);
 int					get_next_line(int fd, char **line);
 void				get_scr_param(t_cams *c, t_res *res);
@@ -227,8 +236,9 @@ void				parse_sp(t_scene **t, char **s);
 void				parse_sq(t_scene **t, char **s);
 void				parse_tr(t_scene **t, char **s);
 t_coord				pnts_to_vec(double x, double y, double z);
-void				recognize_figs(t_scene **t, t_coord d, t_figs *fig,
+void				recognize_figs(t_scene **t, t_two d, t_figs *fig,
 									t_ans *ans);
+int					rgb_to_int(t_clr clr);
 void				set_alght(t_scene **t, char **s);
 void				set_res(t_scene **t, char **s);
 t_clr				use_bright(t_clr clr, double br);

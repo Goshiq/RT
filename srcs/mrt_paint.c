@@ -6,31 +6,28 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 19:26:25 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/13 16:49:35 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/16 09:30:37 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	recognize_figs(t_scene **t, t_coord d, t_figs *fig, t_ans *ans)
+void	recognize_figs(t_scene **t, t_two d, t_figs *fig, t_ans *ans)
 {
 	if (fig->type == SP)
 		cross_sp(t, d, (t_sp *)(fig->data), ans);
+	if (fig->type == PL)
+		cross_pl(t, d, (t_pl *)(fig->data), ans);
 }
 
-int		get_clr(t_scene **t, t_cams cam, t_coord d)
+void	find_cross(t_scene **t, t_two d, t_ans *ans)
 {
-	double	c_min;
-	t_ans	*ans;
-	int		clr;
 	t_figs	*fig;
+	double	c_min;
+	t_coord	tmp;
 
-	clr = 0;
-	fig = (*t)->figs;
 	c_min = INFINITY;
-	d = dots_to_vec(cam.c_crd, d);
-	ans = malloc(sizeof(t_ans));
-	ans->fig = malloc(sizeof(t_figs));
+	fig = (*t)->figs;
 	while (fig)
 	{
 		ans->d = INFINITY;
@@ -38,12 +35,34 @@ int		get_clr(t_scene **t, t_cams cam, t_coord d)
 		if (ans->d < c_min)
 		{
 			c_min = ans->d;
-			calc_col(t, ans, &clr);
+			tmp = ans->s;
+			ans->fig = fig;
 		}
 		fig = fig->next;
 	}
-	free_ans(ans);
-	return (clr);
+	ans->d = c_min;
+	ans->s = tmp;
+}
+
+int		get_clr(t_scene **t, t_coord d)
+{
+	t_ans	*ans;
+	t_clr	lght_clr;
+	t_two	crds;
+
+	lght_clr = make_clr(0, 0, 0);
+	d = dots_to_vec((*t)->cams->c_crd, d);
+	vec_norm(&d);
+	crds.c1 = (*t)->cams->c_crd;
+	crds.c2 = d;
+	ans = malloc(sizeof(t_ans));
+	ans->d = INFINITY;
+	find_cross(t, crds, ans);
+	if (ans->d == INFINITY)
+		return (0);
+	calc_br(t, ans, &lght_clr);
+	free(ans);
+	return (calc_col(t, ans, lght_clr));
 }
 
 int		key_hook(int key, void *param)
@@ -78,7 +97,7 @@ void	mrt_paint(t_scene **t)
 		while (xy.y++ < res.y * 2)
 		{
 			d = loc_to_glob(xy.x - 1 - res.x, res.y - xy.y + 1, (*t)->cams);
-			if (0 < (clr = get_clr(t, *((*t)->cams), d)))
+			if (0 < (clr = get_clr(t, d)))
 				mlx_pixel_put((*t)->m_mlx, (*t)->m_win, xy.x, xy.y, clr);
 		}
 		xy.y = 0;
