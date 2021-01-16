@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 19:30:05 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/16 14:08:51 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/16 19:41:38 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,41 @@ void	cross_pl(t_scene **t, t_two d, t_pl *pl, t_ans *ans)
 
 	(void)t;
 	cp = dots_to_vec(d.c1, pl->c_crd);
-	c_pl = vec_scal_vec(cp, pl->n_crd);
-	if (c_pl == 0)
+	c_pl = vec_scal_vec(cp, pl->n_crd) / vec_len(cp);
+	d_pl = vec_scal_vec(d.c2, pl->n_crd) / vec_len(d.c2);
+	if (d_pl == 0 || (c_pl < 0 && d_pl > 0) || (c_pl > 0 && d_pl < 0))
+		return ;
+	co = vec_len(cp) * c_pl;
+	ans->d = co / d_pl;
+	c_pl = ans->d / vec_len(d.c2);
+	cp = vec_mult_scal(d.c2, c_pl);
+	ans->s = vec_sum(cp, d.c1);
+}
+/*
+void	cross_pl(t_scene **t, t_two d, t_pl *pl, t_ans *ans)
+{
+	t_coord	cp;
+	double	co;
+	double	c_pl;
+	double	d_pl;
+
+	(void)t;
+	cp = dots_to_vec(d.c1, pl->c_crd);
+	c_pl = vec_scal_vec(cp, pl->n_crd) / vec_len(cp);
+	if (!c_pl)
 		return ;
 	if (c_pl < 0)
 	{
 		pl->n_crd = vec_mult_scal(pl->n_crd, -1);
-		co = vec_len(cp) * (-c_pl);
+		c_pl *= -1;
 	}
-	else
-		co = vec_len(cp) * c_pl;
-	d_pl = vec_scal_vec(d.c2, pl->n_crd);
-	if (!d_pl || d_pl < 0)
+	co = vec_len(cp) * c_pl;
+	d_pl = vec_scal_vec(d.c2, pl->n_crd) / vec_len(d.c2);
+	if (d_pl < 0)
 		return ;
 	ans->d = co / d_pl;
-	co = ans->d / vec_len(d.c2);
-	ans->s = vec_mult_scal(d.c2, co);
-	ans->s = vec_sum(ans->s, d.c1);
+	c_pl = ans->d / vec_len(d.c2);
+	cp = vec_mult_scal(d.c2, c_pl);
+	ans->s = vec_sum(cp, d.c1);
 }
+*/

@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:50:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/15 20:52:05 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/16 16:09:47 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,12 +182,14 @@ void				add_next_lght(t_scene **t, char **s);
 void				calc_br(t_scene **t, t_ans *ans, t_clr *clr);
 int					calc_col(t_scene **t, t_ans *ans, t_clr clr);
 double				calc_ang_sp(t_ans *ans, t_lght *light);
+double				calc_ang_pl(t_ans *ans, t_lght *light);
 int					check_atoi(char *s);
 int					check_figs(char *s, t_type *type);
 void				cross_pl(t_scene **t, t_two cd, t_pl *pl, t_ans *ans);
 void				cross_sp(t_scene **t, t_two cd, t_sp *sp, t_ans *ans);
 t_coord				dots_to_vec(t_coord a, t_coord b);
 void				find_cross(t_scene **t, t_two d, t_ans *ans);
+int					finish_it(void *t);
 void				free_lst(t_scene **t);
 void				free_ans(t_ans *ans);
 int					free_split(char **s);
