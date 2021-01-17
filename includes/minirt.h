@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:50:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/16 16:09:47 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/17 18:35:19 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,11 +187,14 @@ int					check_atoi(char *s);
 int					check_figs(char *s, t_type *type);
 void				cross_pl(t_scene **t, t_two cd, t_pl *pl, t_ans *ans);
 void				cross_sp(t_scene **t, t_two cd, t_sp *sp, t_ans *ans);
+void				cross_sq(t_scene **t, t_two cd, t_sq *sq, t_ans *ans);
+void				cross_cy(t_scene **t, t_two cd, t_cy *sq, t_ans *ans);
+void				cross_tr(t_scene **t, t_two cd, t_tr *sq, t_ans *ans);
 t_coord				dots_to_vec(t_coord a, t_coord b);
 void				find_cross(t_scene **t, t_two d, t_ans *ans);
 int					finish_it(void *t);
 void				free_lst(t_scene **t);
-void				free_ans(t_ans *ans);
+void				free_ans(t_ans **ans);
 int					free_split(char **s);
 int					free_str(char *s1, char *s2);
 double				ft_atof(char *s);
@@ -221,6 +224,7 @@ void				init_res(t_res **t);
 void				init_scene(t_scene **t);
 t_coord				loc_to_glob(int x, int y, t_cams *c);
 t_clr				make_clr(int r, int g, int b);
+void				malloc_ans(t_scene **t, t_ans **ans);
 int					mrt_doerr(char *s, char *str, t_scene **t);
 void				mrt_clear_win(t_scene **t);
 t_coord				mrt_get_c_screen(t_cams *cam);

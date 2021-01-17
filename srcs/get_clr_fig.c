@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 17:30:06 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/16 10:07:00 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/17 18:33:43 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ t_clr	get_clr_fig(t_ans *ans)
 		tmp = ((t_sp *)(ans->fig->data))->clr;
 	if (ans->fig->type == PL)
 		tmp = ((t_pl *)(ans->fig->data))->clr;
+	if (ans->fig->type == CY)
+		tmp = ((t_cy *)(ans->fig->data))->clr;
+	if (ans->fig->type == SQ)
+		tmp = ((t_sq *)(ans->fig->data))->clr;
+	if (ans->fig->type == TR)
+		tmp = ((t_tr *)(ans->fig->data))->clr;
 	return (tmp);
 }
 

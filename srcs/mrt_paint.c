@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 19:26:25 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/16 19:41:30 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/17 18:51:00 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@ void	recognize_figs(t_scene **t, t_two d, t_figs *fig, t_ans *ans)
 		cross_sp(t, d, (t_sp *)(fig->data), ans);
 	if (fig->type == PL)
 		cross_pl(t, d, (t_pl *)(fig->data), ans);
+	if (fig->type == CY)
+		cross_cy(t, d, (t_cy *)(fig->data), ans);
+	if (fig->type == SQ)
+		cross_sq(t, d, (t_sq *)(fig->data), ans);
+	if (fig->type == TR)
+		cross_tr(t, d, (t_tr *)(fig->data), ans);
 }
 
 void	find_cross(t_scene **t, t_two d, t_ans *ans)
@@ -55,13 +61,15 @@ int		get_clr(t_scene **t, t_coord d)
 	vec_norm(&d);
 	crds.c1 = (*t)->cams->c_crd;
 	crds.c2 = d;
-	ans = malloc(sizeof(t_ans));
-	ans->d = INFINITY;
+	malloc_ans(t, &ans);
 	find_cross(t, crds, ans);
 	if (ans->d == INFINITY)
+	{
+		free_ans(&ans);
 		return (0);
+	}
 	calc_br(t, ans, &lght_clr);
-	free(ans);
+	free_ans(&ans);
 	return (calc_col(t, ans, lght_clr));
 }
 

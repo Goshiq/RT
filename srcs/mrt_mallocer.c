@@ -6,16 +6,23 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 16:28:13 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/14 15:02:05 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/17 16:20:49 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	free_ans(t_ans *ans)
+void	malloc_ans(t_scene **t, t_ans **ans)
 {
-	free(ans->fig);
-	free(ans);
+	(void)t;
+	*ans = malloc(sizeof(t_ans));
+	(*ans)->d = INFINITY;
+	(*ans)->s = pnts_to_vec(0.0, 0.0, 0.0);
+}
+
+void	free_ans(t_ans **ans)
+{
+	free(*ans);
 }
 
 void	ft_lstadd_back(t_lst **ptr, void *p, t_scene **t)
@@ -60,6 +67,8 @@ void	mrt_malloc(void **p, t_mall type, t_scene **t)
 		*p = malloc(sizeof(t_sq));
 	else if (type == TRI)
 		*p = malloc(sizeof(t_tr));
+	else if (type == ANS)
+		*p = malloc(sizeof(t_ans));
 	if (!(*p))
 		mrt_doerr("Can't allocate memory\n", 0x0, t);
 	ft_lstadd_back(&((*t)->ptr), *p, t);
