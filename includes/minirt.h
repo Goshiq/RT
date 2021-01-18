@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:50:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/17 18:35:19 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/18 20:13:20 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdarg.h>
+
+# define MIN 0.005
+# define COEF 4
 
 typedef enum
 {
@@ -154,10 +157,11 @@ typedef struct		s_cy
 
 typedef struct		s_tr
 {
-	struct s_coord	f_crd;
+	struct s_coord	c_crd;
+	struct s_coord	n_crd;
+	t_clr			clr;
 	struct s_coord	s_crd;
 	struct s_coord	t_crd;
-	t_clr			clr;
 }					t_tr;
 
 typedef struct		s_ans
@@ -183,8 +187,10 @@ void				calc_br(t_scene **t, t_ans *ans, t_clr *clr);
 int					calc_col(t_scene **t, t_ans *ans, t_clr clr);
 double				calc_ang_sp(t_ans *ans, t_lght *light);
 double				calc_ang_pl(t_ans *ans, t_lght *light);
+double				calc_ang_cy(t_ans *ans, t_lght *light);
 int					check_atoi(char *s);
 int					check_figs(char *s, t_type *type);
+void				check_n_tr(t_two d, t_coord *n, t_tr *tr);
 void				cross_pl(t_scene **t, t_two cd, t_pl *pl, t_ans *ans);
 void				cross_sp(t_scene **t, t_two cd, t_sp *sp, t_ans *ans);
 void				cross_sq(t_scene **t, t_two cd, t_sq *sq, t_ans *ans);
@@ -192,6 +198,7 @@ void				cross_cy(t_scene **t, t_two cd, t_cy *sq, t_ans *ans);
 void				cross_tr(t_scene **t, t_two cd, t_tr *sq, t_ans *ans);
 t_coord				dots_to_vec(t_coord a, t_coord b);
 void				find_cross(t_scene **t, t_two d, t_ans *ans);
+t_coord				find_n_tr(t_tr *tr);
 int					finish_it(void *t);
 void				free_lst(t_scene **t);
 void				free_ans(t_ans **ans);
@@ -216,6 +223,7 @@ int					get_clr(t_scene **t, t_coord d);
 t_clr				get_clr_fig(t_ans *ans);
 int					get_next_line(int fd, char **line);
 void				get_scr_param(t_cams *c, t_res *res);
+int					in_tr(t_coord p, t_coord p1, t_coord p2, t_coord p3);
 void				init_alght(t_lght **t);
 void				init_cams(t_cams **t);
 void				init_figs(t_figs **t);
@@ -225,6 +233,8 @@ void				init_scene(t_scene **t);
 t_coord				loc_to_glob(int x, int y, t_cams *c);
 t_clr				make_clr(int r, int g, int b);
 void				malloc_ans(t_scene **t, t_ans **ans);
+void				move_cam_fwrd(t_cams *cam);
+void				move_cam_back(t_cams *cam);
 int					mrt_doerr(char *s, char *str, t_scene **t);
 void				mrt_clear_win(t_scene **t);
 t_coord				mrt_get_c_screen(t_cams *cam);

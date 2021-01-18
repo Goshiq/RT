@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 10:24:20 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/17 18:42:57 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/18 11:47:33 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ double	get_angle(t_ans *ans, t_lght *light)
 		res = calc_ang_pl(ans, light);
 	if (ans->fig->type == SQ)
 		res = calc_ang_pl(ans, light);
+	if (ans->fig->type == TR)
+		res = calc_ang_pl(ans, light);
+	if (ans->fig->type == CY)
+		res = calc_ang_cy(ans, light);
 	return (res);
 }
 
@@ -54,5 +58,15 @@ double	calc_ang_pl(t_ans *ans, t_lght *light)
 	res = vec_scal_vec(n, dl) / vec_len(dl);
 	if (res < 0)
 		res *= -1;
+	return (res);
+}
+
+double	calc_ang_cy(t_ans *ans, t_lght *light)
+{
+	double	res;
+
+	res = 0.0;
+	(void)ans;
+	(void)light;
 	return (res);
 }

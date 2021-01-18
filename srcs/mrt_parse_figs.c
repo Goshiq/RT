@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 15:41:13 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/09 14:22:49 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/18 18:29:44 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	parse_tr(t_scene **t, char **s)
 	if (!s[1] || !s[2] || !s[3] || !s[4] || s[5])
 		mrt_doerr("Wrong input triangle format:\n", s[1], t);
 	mrt_malloc((void **)&tr, TRI, t);
-	if (0 > (parse_coord(&(tr->f_crd), s[1])))
+	if (0 > (parse_coord(&(tr->c_crd), s[1])))
 		mrt_doerr("Wrong triangle's coordinate format:\n", s[1], t);
 	if (0 > (parse_coord(&(tr->s_crd), s[2])))
 		mrt_doerr("Wrong triangle's coordinate format:\n", s[2], t);
@@ -123,5 +123,6 @@ void	parse_tr(t_scene **t, char **s)
 	if (0 > clr.r)
 		mrt_doerr("Wrong triangle color:\n", s[4], t);
 	tr->clr = clr;
+	tr->n_crd = find_n_tr(tr);
 	ft_figadd_back(t, tr, TR);
 }

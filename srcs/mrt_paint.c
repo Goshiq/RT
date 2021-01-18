@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 19:26:25 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/17 18:51:00 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/18 20:21:36 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,10 @@ int		key_hook(int key, void *param)
 		(*t)->cams = (*t)->cams->prev;
 	else if (key == 124)
 		(*t)->cams = (*t)->cams->next;
+	else if (key == 125)
+		move_cam_fwrd((*t)->cams);
+	else if (key == 126)
+		move_cam_back((*t)->cams);
 	else
 		return (0);
 	mrt_paint(t);
@@ -114,6 +118,6 @@ void	mrt_paint(t_scene **t)
 	}
 	printf("Done\n");
 	mlx_key_hook((*t)->m_win, &key_hook, t);
-	mlx_hook((*t)->m_win, 17, 0L, finish_it, t);
+	mlx_hook((*t)->m_win, 17, 0, finish_it, t);
 	mlx_loop((*t)->m_mlx);
 }

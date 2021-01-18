@@ -6,18 +6,22 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 14:22:06 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/17 16:20:13 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/18 20:15:22 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#define COEF 4
-#define MIN 0.005
 
 int		check_ans(t_ans *ans, t_ans *shad, t_two dd)
 {
 	if (ans->fig->type == PL)
 		if (vec_scal_vec(dd.c2, ((t_pl *)(ans->fig->data))->n_crd) >= 0)
+			return (1);
+	if (ans->fig->type == SQ)
+		if (vec_scal_vec(dd.c2, ((t_sq *)(ans->fig->data))->n_crd) >= 0)
+			return (1);
+	if (ans->fig->type == TR)
+		if (vec_scal_vec(dd.c2, ((t_tr *)(ans->fig->data))->n_crd) >= 0)
 			return (1);
 	if (shad->d < INFINITY && shad->d < vec_len(dd.c2) && shad->d > MIN)
 		return (1);
