@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 12:19:51 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/17 16:20:07 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/19 11:29:38 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		check_figs(char *s, t_type *type)
 	return (1);
 }
 
-void	init_scene(t_scene **t)
+void	malloc_scene(t_scene **t)
 {
 	mrt_malloc((void **)t, SC, t);
 	mrt_malloc((void **)&((*t)->res), RES, t);
@@ -37,12 +37,6 @@ void	init_scene(t_scene **t)
 	mrt_malloc((void **)&((*t)->cams), CAMS, t);
 	mrt_malloc((void **)&((*t)->lghts), LGHTS, t);
 	mrt_malloc((void **)&((*t)->alght), LGHTS, t);
-	(*t)->m_mlx = mlx_init();
-	init_res(&((*t)->res));
-	init_alght(&((*t)->alght));
-	init_cams(&((*t)->cams));
-	init_lghts(&((*t)->lghts));
-	init_figs(&((*t)->figs));
 }
 
 int		fill_struct(char *s, t_scene **t)
@@ -78,7 +72,7 @@ int		mrt_parse_scene(char *s)
 	int		check;
 	t_scene	*sc;
 
-	init_scene(&sc);
+	malloc_scene(&sc);
 	if (!(fd = open(s, O_RDONLY)))
 		mrt_doerr("Can't open the sc file:\n", s, 0x0);
 	sc->fd = fd;

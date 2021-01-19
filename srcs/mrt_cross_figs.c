@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 19:30:05 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/18 20:22:18 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/19 18:09:53 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,6 @@ void	cross_tr(t_scene **t, t_two d, t_tr *tr, t_ans *ans)
 	if (ans->d == INFINITY)
 		return ;
 	d_pl = vec_scal_vec(d.c2, tr->n_crd) / vec_len(d.c2);
-	if (d_pl <= 0 || (!in_tr(ans->s, tr->c_crd, tr->s_crd, tr->t_crd)))
+	if (d_pl <= 0 || (!in_tr(ans->s, tr)))
 		ans->d = INFINITY;
 }

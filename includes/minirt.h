@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:50:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/18 20:13:20 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/19 18:22:53 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,16 +223,23 @@ int					get_clr(t_scene **t, t_coord d);
 t_clr				get_clr_fig(t_ans *ans);
 int					get_next_line(int fd, char **line);
 void				get_scr_param(t_cams *c, t_res *res);
-int					in_tr(t_coord p, t_coord p1, t_coord p2, t_coord p3);
+int					in_tr(t_coord p, t_tr *tr);
 void				init_alght(t_lght **t);
 void				init_cams(t_cams **t);
 void				init_figs(t_figs **t);
 void				init_lghts(t_lght **t);
+void				init_objs(void **p, t_mall type);
+void				init_pl(t_pl **t);
 void				init_res(t_res **t);
-void				init_scene(t_scene **t);
+void				init_sc(t_scene **t);
+void				init_sp(t_sp **t);
+void				init_sq(t_sq **t);
+void				init_cy(t_cy **t);
+void				init_tr(t_tr **t);
 t_coord				loc_to_glob(int x, int y, t_cams *c);
 t_clr				make_clr(int r, int g, int b);
 void				malloc_ans(t_scene **t, t_ans **ans);
+void				malloc_scene(t_scene **t);
 void				move_cam_fwrd(t_cams *cam);
 void				move_cam_back(t_cams *cam);
 int					mrt_doerr(char *s, char *str, t_scene **t);

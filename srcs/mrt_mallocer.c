@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 16:28:13 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/17 16:20:49 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/19 16:14:28 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,8 @@ void	mrt_malloc(void **p, t_mall type, t_scene **t)
 		*p = malloc(sizeof(t_sq));
 	else if (type == TRI)
 		*p = malloc(sizeof(t_tr));
-	else if (type == ANS)
-		*p = malloc(sizeof(t_ans));
 	if (!(*p))
 		mrt_doerr("Can't allocate memory\n", 0x0, t);
+	init_objs(p, type);
 	ft_lstadd_back(&((*t)->ptr), *p, t);
 }
