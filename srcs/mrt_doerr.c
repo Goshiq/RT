@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 16:25:09 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/19 16:15:52 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/20 22:08:49 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ int		mrt_doerr(char *s, char *str, t_scene **t)
 {
 	if (t)
 	{
+		if ((*t)->img)
+			if ((*t)->img->fd > 0)
+				close((*t)->img->fd);
 		close((*t)->fd);
 		free_lst(t);
 	}

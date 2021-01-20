@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:50:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/19 18:22:53 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/20 22:42:05 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 # define MIN 0.005
 # define COEF 4
+# define SCREEN "screenshot.bmp"
 
 typedef enum
 {
@@ -48,13 +49,14 @@ typedef enum
 	CYL,
 	SQU,
 	TRI,
-	ANS
+	IMG
 }	t_mall;
 
 typedef struct		s_scene
 {
 	void			*m_mlx;
 	void			*m_win;
+	void			*m_img;
 	struct s_res	*res;
 	struct s_figs	*figs;
 	struct s_cams	*cams;
@@ -62,6 +64,7 @@ typedef struct		s_scene
 	struct s_lght	*alght;
 	struct s_lst	*ptr;
 	int				fd;
+	struct s_img	*img;
 }					t_scene;
 
 typedef struct		s_doub
@@ -177,6 +180,15 @@ typedef struct		s_two
 	t_coord			c2;
 }					t_two;
 
+typedef struct		s_img
+{
+	int				*adr;
+	int				fd;
+	int				bits;
+	int				l_lngth;
+	int				endian;
+}					t_img;
+
 void				add_cam(t_scene **t, char **s);
 t_clr				add_clr(t_clr c1, t_clr c2);
 void				add_fig(t_scene **t, char **s, t_type type);
@@ -236,19 +248,22 @@ void				init_sp(t_sp **t);
 void				init_sq(t_sq **t);
 void				init_cy(t_cy **t);
 void				init_tr(t_tr **t);
+void				init_win_img(t_scene *t, int save);
+int					key_hook(int key, void *param);
 t_coord				loc_to_glob(int x, int y, t_cams *c);
 t_clr				make_clr(int r, int g, int b);
 void				malloc_ans(t_scene **t, t_ans **ans);
 void				malloc_scene(t_scene **t);
+void				manage_loop(t_scene **t, int save);
 void				move_cam_fwrd(t_cams *cam);
 void				move_cam_back(t_cams *cam);
 int					mrt_doerr(char *s, char *str, t_scene **t);
 void				mrt_clear_win(t_scene **t);
 t_coord				mrt_get_c_screen(t_cams *cam);
 void				mrt_malloc(void **p, t_mall type, t_scene **t);
-int					mrt_parse_scene(char *s);
-void				mrt_paint(t_scene **t);
-int					mrt_saveimg(char *s);
+int					mrt_parse_scene(char *s, int save);
+void				mrt_paint(t_scene **t, int save);
+void				mrt_saver(t_scene **t, t_doub xy, int clr);
 t_clr				parse_color(char *s, float br);
 int					parse_coord(t_coord *c, char *s);
 void				parse_cy(t_scene **t, char **s);
@@ -259,6 +274,7 @@ void				parse_sp(t_scene **t, char **s);
 void				parse_sq(t_scene **t, char **s);
 void				parse_tr(t_scene **t, char **s);
 t_coord				pnts_to_vec(double x, double y, double z);
+void				put_pixel(t_scene **t, t_doub xy, int clr, int save);
 void				recognize_figs(t_scene **t, t_two d, t_figs *fig,
 									t_ans *ans);
 int					rgb_to_int(t_clr clr);

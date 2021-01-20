@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 19:26:25 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/18 20:21:36 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/20 22:35:49 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,11 @@ int		key_hook(int key, void *param)
 		move_cam_back((*t)->cams);
 	else
 		return (0);
-	mrt_paint(t);
+	mrt_paint(t, 0);
 	return (0);
 }
 
-void	mrt_paint(t_scene **t)
+void	mrt_paint(t_scene **t, int save)
 {
 	t_doub	res;
 	t_doub	xy;
@@ -103,21 +103,19 @@ void	mrt_paint(t_scene **t)
 
 	res.x = (*t)->res->x / 2;
 	res.y = (*t)->res->y / 2;
-	xy.x = 0;
-	xy.y = 0;
-	mrt_clear_win(t);
+	xy.x = -1;
+	xy.y = -1;
+	if (!save)
+		mrt_clear_win(t);
 	while (xy.x++ < res.x * 2)
 	{
 		while (xy.y++ < res.y * 2)
 		{
-			d = loc_to_glob(xy.x - 1 - res.x, res.y - xy.y + 1, (*t)->cams);
+			d = loc_to_glob(xy.x - res.x, res.y - xy.y, (*t)->cams);
 			if (0 < (clr = get_clr(t, d)))
-				mlx_pixel_put((*t)->m_mlx, (*t)->m_win, xy.x, xy.y, clr);
+				put_pixel(t, xy, clr, save);
 		}
 		xy.y = 0;
 	}
-	printf("Done\n");
-	mlx_key_hook((*t)->m_win, &key_hook, t);
-	mlx_hook((*t)->m_win, 17, 0, finish_it, t);
-	mlx_loop((*t)->m_mlx);
+	manage_loop(t, save);
 }

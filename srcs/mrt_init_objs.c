@@ -6,11 +6,39 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 11:39:41 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/19 11:39:44 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/20 22:42:02 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+void	init_win_img(t_scene *t, int save)
+{
+	t_img	*p;
+
+	if (!save)
+	{
+		if (!(t->m_win = mlx_new_window(t->m_mlx, t->res->x, t->res->y, "")))
+			mrt_doerr("Can't init MLX_WIN\n", 0x0, &t);
+	}
+	else
+	{
+		if (!(p = malloc(sizeof(t_img))))
+			mrt_doerr("Can't malloc memory for the image\n", 0x0, &t);
+		p->adr = 0x0;
+		p->bits = 0;
+		p->l_lngth = 0;
+		p->endian = 0;
+		p->fd = -1;
+		t->img = p;
+		ft_lstadd_back(&(t->ptr), (void *)p, &t);
+		if (!(t->m_img = mlx_new_image(t->m_mlx, t->res->x, t->res->y)))
+			mrt_doerr("Can't init MLX_IMAGE\n", 0x0, &t);
+		if (!(t->img->adr = (int *)mlx_get_data_addr(t->m_img, &t->img->bits,
+						&t->img->l_lngth, &t->img->endian)))
+			mrt_doerr("Can't get image info\n", 0x0, &t);
+	}
+}
 
 void	init_objs(void **p, t_mall type)
 {

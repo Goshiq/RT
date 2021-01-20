@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 12:19:51 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/19 11:29:38 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/20 22:42:04 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		fill_struct(char *s, t_scene **t)
 	return (0);
 }
 
-int		mrt_parse_scene(char *s)
+int		mrt_parse_scene(char *s, int save)
 {
 	int		fd;
 	char	*line;
@@ -84,8 +84,8 @@ int		mrt_parse_scene(char *s)
 			mrt_doerr("Invalid sc file:\n", s, &sc);
 		free(line);
 	}
-	sc->m_win = mlx_new_window(sc->m_mlx, sc->res->x, sc->res->y, "");
-	mrt_paint(&sc);
+	init_win_img(sc, save);
+	mrt_paint(&sc, save);
 	mrt_doerr(0x0, 0x0, &sc);
 	return (0);
 }
@@ -93,9 +93,9 @@ int		mrt_parse_scene(char *s)
 int		main(int argc, char **argv)
 {
 	if (argc == 2)
-		return (mrt_parse_scene(argv[1]));
+		return (mrt_parse_scene(argv[1], 0));
 	else if (argc == 3 && !ft_strcmp(argv[2], "--save"))
-		return (mrt_saveimg(argv[1]));
+		return (mrt_parse_scene(argv[1], 1));
 	mrt_doerr("Wrong number of arguments\n", 0x0, 0x0);
 	return (0);
 }
