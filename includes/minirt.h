@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:50:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/20 22:42:05 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/21 16:45:36 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ double				calc_ang_pl(t_ans *ans, t_lght *light);
 double				calc_ang_cy(t_ans *ans, t_lght *light);
 int					check_atoi(char *s);
 int					check_figs(char *s, t_type *type);
+int					check_file(char *s);
 void				check_n_tr(t_two d, t_coord *n, t_tr *tr);
 void				cross_pl(t_scene **t, t_two cd, t_pl *pl, t_ans *ans);
 void				cross_sp(t_scene **t, t_two cd, t_sp *sp, t_ans *ans);
@@ -281,6 +282,7 @@ int					rgb_to_int(t_clr clr);
 void				set_alght(t_scene **t, char **s);
 void				set_res(t_scene **t, char **s);
 t_clr				use_bright(t_clr clr, double br);
+int					validate_scene(t_scene **t);
 t_coord				vec_div_scal(t_coord v, double d);
 double				vec_len(t_coord v);
 t_coord				vec_mult_scal(t_coord v, double d);

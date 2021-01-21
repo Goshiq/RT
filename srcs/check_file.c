@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mrt_saver.c                                        :+:      :+:    :+:   */
+/*   check_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/04 12:39:50 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/21 11:51:10 by jmogo            ###   ########.fr       */
+/*   Created: 2021/01/21 16:36:29 by jmogo             #+#    #+#             */
+/*   Updated: 2021/01/21 16:53:04 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	mrt_saver(t_scene **t, t_doub xy, int clr)
+int	check_file(char *s)
 {
-	((*t)->img->adr)[(int)xy.y * (*t)->res->x + (int)xy.x] = clr;
+	char	**splitted;
+
+	if (!(splitted = ft_split(s, '.')))
+		return (1);
+	if (splitted[1] && ft_strcmp(splitted[1], "rt"))
+		return (1);
+	free_split(splitted);
+	return (0);
 }

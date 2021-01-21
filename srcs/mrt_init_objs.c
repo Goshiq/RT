@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 11:39:41 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/20 22:42:02 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/21 11:33:55 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	init_win_img(t_scene *t, int save)
 		if (!(t->img->adr = (int *)mlx_get_data_addr(t->m_img, &t->img->bits,
 						&t->img->l_lngth, &t->img->endian)))
 			mrt_doerr("Can't get image info\n", 0x0, &t);
+		p->fd = creat(SCREEN, 00644);
 	}
 }
 

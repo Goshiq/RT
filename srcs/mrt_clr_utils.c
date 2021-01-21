@@ -6,13 +6,13 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 14:22:06 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/18 20:15:22 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/21 16:35:15 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int		check_ans(t_ans *ans, t_ans *shad, t_two dd)
+int		check_ans(t_scene **t, t_ans *ans, t_ans *shad, t_two dd)
 {
 	if (ans->fig->type == PL)
 		if (vec_scal_vec(dd.c2, ((t_pl *)(ans->fig->data))->n_crd) >= 0)
@@ -22,6 +22,10 @@ int		check_ans(t_ans *ans, t_ans *shad, t_two dd)
 			return (1);
 	if (ans->fig->type == TR)
 		if (vec_scal_vec(dd.c2, ((t_tr *)(ans->fig->data))->n_crd) >= 0)
+			return (1);
+	if (ans->fig->type == SP)
+		if (vec_scal_vec(dots_to_vec((*t)->cams->c_crd, ans->s),
+			dots_to_vec(((t_sp *)(ans->fig->data))->c_crd, ans->s)) >= 0)
 			return (1);
 	if (shad->d < INFINITY && shad->d < vec_len(dd.c2) && shad->d > MIN)
 		return (1);
@@ -44,7 +48,7 @@ void	calc_br(t_scene **t, t_ans *ans, t_clr *clr)
 		shad->d = INFINITY;
 		dd.c2 = dots_to_vec(ans->s, light->c_crd);
 		find_cross(t, dd, shad);
-		if (check_ans(ans, shad, dd))
+		if (check_ans(t, ans, shad, dd))
 		{
 			light = light->next;
 			continue ;

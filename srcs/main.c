@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 12:19:51 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/20 22:42:04 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/21 16:43:27 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,10 @@ int		mrt_parse_scene(char *s, int save)
 
 int		main(int argc, char **argv)
 {
-	if (argc == 2)
+	if (argc == 2 && !check_file(argv[1]))
 		return (mrt_parse_scene(argv[1], 0));
-	else if (argc == 3 && !ft_strcmp(argv[2], "--save"))
+	else if (argc == 3 && !check_file(argv[1]) && !ft_strcmp(argv[2], "--save"))
 		return (mrt_parse_scene(argv[1], 1));
-	mrt_doerr("Wrong number of arguments\n", 0x0, 0x0);
+	mrt_doerr("Incorrect arguments\n", 0x0, 0x0);
 	return (0);
 }

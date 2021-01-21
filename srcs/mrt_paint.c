@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 19:26:25 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/20 22:35:49 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/21 16:35:18 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,15 +107,15 @@ void	mrt_paint(t_scene **t, int save)
 	xy.y = -1;
 	if (!save)
 		mrt_clear_win(t);
-	while (xy.x++ < res.x * 2)
+	while (xy.x++ < res.x * 2 - 1)
 	{
-		while (xy.y++ < res.y * 2)
+		while (xy.y++ < res.y * 2 - 1)
 		{
 			d = loc_to_glob(xy.x - res.x, res.y - xy.y, (*t)->cams);
 			if (0 < (clr = get_clr(t, d)))
 				put_pixel(t, xy, clr, save);
 		}
-		xy.y = 0;
+		xy.y = -1;
 	}
 	manage_loop(t, save);
 }
