@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 19:30:05 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/21 16:35:20 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/22 21:43:20 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,23 +73,14 @@ void	cross_sp(t_scene **t, t_two d, t_sp *sp, t_ans *ans)
 
 void	cross_sq(t_scene **t, t_two d, t_sq *sq, t_ans *ans)
 {
-	t_coord	line;
-	double	side;
 	double	d_pl;
 
 	cross_pl(t, d, (t_pl *)sq, ans);
 	if (ans->d == INFINITY)
 		return ;
 	d_pl = vec_scal_vec(d.c2, sq->n_crd) / vec_len(d.c2);
-	if (d_pl <= 0)
+	if (d_pl <= 0 || (!in_sq(ans->s, sq)))
 		ans->d = INFINITY;
-	else
-	{
-		line = dots_to_vec(ans->s, sq->c_crd);
-		side = sq->side / 2;
-		if (fabs(line.x) > side || fabs(line.y) > side || fabs(line.z) > side)
-			ans->d = INFINITY;
-	}
 }
 
 void	cross_tr(t_scene **t, t_two d, t_tr *tr, t_ans *ans)

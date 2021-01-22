@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:50:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/22 11:29:24 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/22 21:30:36 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,12 +147,14 @@ typedef struct		s_sq
 	struct s_coord	n_crd;
 	double			side;
 	t_clr			clr;
+	t_coord			corns[4];
 }					t_sq;
 
 typedef struct		s_cy
 {
 	struct s_coord	c_crd;
 	struct s_coord	n_crd;
+	struct s_coord	top;
 	double			diam;
 	double			height;
 	t_clr			clr;
@@ -234,9 +236,11 @@ char				*ft_strjoin(char *s1, char *s2);
 double				get_angle(t_ans *ans, t_lght *light);
 int					get_clr(t_scene **t, t_coord d);
 t_clr				get_clr_fig(t_ans *ans);
+void				get_corners(t_sq *sq);
 int					get_next_line(int fd, char **line);
 void				get_scr_param(t_cams *c, t_res *res);
 int					in_tr(t_coord p, t_tr *tr);
+int					in_sq(t_coord p, t_sq *sq);
 void				init_alght(t_lght **t);
 void				init_cams(t_cams **t);
 void				init_figs(t_figs **t);

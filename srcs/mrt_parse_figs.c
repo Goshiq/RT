@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 15:41:13 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/18 18:29:44 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/22 21:08:29 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	parse_cy(t_scene **t, char **s)
 	if (0 > clr.r)
 		mrt_doerr("Wrong cylinder color:\n", s[5], t);
 	cy->clr = clr;
+	cy->top = vec_sum(cy->c_crd, vec_mult_scal(cy->n_crd, f));
 	ft_figadd_back(t, cy, CY);
 }
 
@@ -102,6 +103,7 @@ void	parse_sq(t_scene **t, char **s)
 	if (0 > clr.r)
 		mrt_doerr("Wrong square color:\n", s[4], t);
 	sq->clr = clr;
+	get_corners(sq);
 	ft_figadd_back(t, sq, SQ);
 }
 

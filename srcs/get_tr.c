@@ -6,16 +6,11 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:12:12 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/19 18:20:04 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/22 19:42:44 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-double	get_sign(t_coord fp, t_coord sp, t_coord tp)
-{
-	return (fp.x - tp.x) * (sp.y - tp.y) - (sp.x - tp.x) * (fp.y - tp.y);
-}
 
 int		check_side(t_coord n, t_coord p_pl, t_coord d, t_coord p)
 {

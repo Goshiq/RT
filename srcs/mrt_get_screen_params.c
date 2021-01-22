@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 11:22:29 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/10 11:57:32 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/22 21:04:00 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	get_scr_param(t_cams *c, t_res *res)
 	else
 		vec_norm(&(c->px));
 	c->py = vec_mult_vec(c->px, c->n_crd);
+	vec_norm(&(c->py));
 }
 
 t_coord	mrt_get_c_screen(t_cams *cam)
