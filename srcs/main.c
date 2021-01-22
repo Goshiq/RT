@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 12:19:51 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/21 17:13:45 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/22 11:29:33 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int		mrt_parse_scene(char *s, int save)
 			mrt_doerr("Invalid sc file:\n", s, &sc);
 		free(line);
 	}
+	validate_scene(sc);
 	init_win_img(sc, save);
 	mrt_paint(&sc, save);
 	mrt_doerr(0x0, 0x0, &sc);

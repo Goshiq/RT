@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:50:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/21 17:13:30 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/22 11:29:24 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,7 +282,7 @@ int					rgb_to_int(t_clr clr);
 void				set_alght(t_scene **t, char **s);
 void				set_res(t_scene **t, char **s);
 t_clr				use_bright(t_clr clr, double br);
-int					validate_scene(t_scene **t);
+void				validate_scene(t_scene *t);
 t_coord				vec_div_scal(t_coord v, double d);
 double				vec_len(t_coord v);
 t_coord				vec_mult_scal(t_coord v, double d);

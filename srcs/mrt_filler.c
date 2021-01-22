@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:26:04 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/09 14:00:28 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/22 11:23:58 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	set_res(t_scene **t, char **s)
 	int	resx;
 	int	resy;
 
-	if ((*t)->res->x || (*t)->res->y)
+	if ((*t)->res->x > 0 || (*t)->res->y > 0)
 		mrt_doerr("Got a resolution twice\n", 0x0, t);
 	if (!s[1] || !s[2] || s[3])
 		mrt_doerr("Wrong input resolution format\n", 0x0, t);
