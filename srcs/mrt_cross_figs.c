@@ -6,18 +6,25 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 19:30:05 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/22 21:43:20 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/23 19:20:30 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	cross_cy(t_scene **t, t_two cd, t_cy *cy, t_ans *ans)
+void	cross_cy(t_scene **t, t_two d, t_cy *cy, t_ans *ans)
 {
+	t_coord	proec;
+	t_coord	n;
+	double	dist;
+
 	(void)t;
-	(void)cd;
-	(void)cy;
 	(void)ans;
+	dist = 0.0;
+	n = vec_mult_vec(d.c2, cy->n_crd);
+	proec = get_proec(cy->c_crd, d.c1, &n, &dist);
+	if (dist > cy->diam / 2)
+		return ;
 }
 
 void	cross_pl(t_scene **t, t_two d, t_pl *pl, t_ans *ans)

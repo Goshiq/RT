@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 19:26:25 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/22 19:51:07 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/23 18:07:56 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,13 @@ int		key_hook(int key, void *param)
 	t = (t_scene **)param;
 	if (key == 53)
 		mrt_doerr(0x0, 0x0, t);
-	else if (key == 123)
+	else if (key == 123 && (*t)->cams->next)
 		(*t)->cams = (*t)->cams->prev;
-	else if (key == 124)
+	else if (key == 124 && (*t)->cams->next)
 		(*t)->cams = (*t)->cams->next;
-	else if (key == 125)
+	else if (key == 125 && (*t)->cams->next)
 		move_cam_fwrd((*t)->cams);
-	else if (key == 126)
+	else if (key == 126 && (*t)->cams->next)
 		move_cam_back((*t)->cams);
 	else
 		return (0);

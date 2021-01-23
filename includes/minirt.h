@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:50:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/22 21:30:36 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/23 18:14:24 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define MIN 0.005
 # define COEF 4
 # define SCREEN "screenshot.bmp"
+# define TRATE 30
 
 typedef enum
 {
@@ -158,6 +159,7 @@ typedef struct		s_cy
 	double			diam;
 	double			height;
 	t_clr			clr;
+	int				cap_top;
 }					t_cy;
 
 typedef struct		s_tr
@@ -191,21 +193,31 @@ typedef struct		s_img
 	int				endian;
 }					t_img;
 
+typedef struct		s_par
+{
+	double			a;
+	double			b;
+	double			c;
+	double			d;
+}					t_par;
+
 void				add_cam(t_scene **t, char **s);
 t_clr				add_clr(t_clr c1, t_clr c2);
 void				add_fig(t_scene **t, char **s, t_type type);
 void				add_lght(t_scene **t, char **s);
 void				add_next_cam(t_scene **t, char **s);
 void				add_next_lght(t_scene **t, char **s);
-void				calc_br(t_scene **t, t_ans *ans, t_clr *clr);
-int					calc_col(t_scene **t, t_ans *ans, t_clr clr);
 double				calc_ang_sp(t_ans *ans, t_lght *light);
 double				calc_ang_pl(t_ans *ans, t_lght *light);
 double				calc_ang_cy(t_ans *ans, t_lght *light);
+void				calc_br(t_scene **t, t_ans *ans, t_clr *clr);
+int					calc_col(t_scene **t, t_ans *ans, t_clr clr);
+void				calc_pl(t_par *par, t_coord d, t_coord n);
 int					check_atoi(char *s);
 int					check_figs(char *s, t_type *type);
 int					check_file(char *s);
 void				check_n_tr(t_two d, t_coord *n, t_tr *tr);
+int					cross_cap(t_scene **t, t_cy *cy, t_ans *ans, t_two d);
 void				cross_pl(t_scene **t, t_two cd, t_pl *pl, t_ans *ans);
 void				cross_sp(t_scene **t, t_two cd, t_sp *sp, t_ans *ans);
 void				cross_sq(t_scene **t, t_two cd, t_sq *sq, t_ans *ans);
@@ -238,6 +250,7 @@ int					get_clr(t_scene **t, t_coord d);
 t_clr				get_clr_fig(t_ans *ans);
 void				get_corners(t_sq *sq);
 int					get_next_line(int fd, char **line);
+t_coord				get_proec(t_coord d, t_coord dp, t_coord *n, double *dist);
 void				get_scr_param(t_cams *c, t_res *res);
 int					in_tr(t_coord p, t_tr *tr);
 int					in_sq(t_coord p, t_sq *sq);
@@ -254,14 +267,17 @@ void				init_sq(t_sq **t);
 void				init_cy(t_cy **t);
 void				init_tr(t_tr **t);
 void				init_win_img(t_scene *t, int save);
+int					is_in_plane(t_par par, t_coord d);
 int					key_hook(int key, void *param);
 t_coord				loc_to_glob(int x, int y, t_cams *c);
 t_clr				make_clr(int r, int g, int b);
 void				malloc_ans(t_scene **t, t_ans **ans);
 void				malloc_scene(t_scene **t);
 void				manage_loop(t_scene **t, int save);
-void				move_cam_fwrd(t_cams *cam);
 void				move_cam_back(t_cams *cam);
+void				move_cam_fwrd(t_cams *cam);
+void				move_cam_left(t_cams *cam, t_res *res);
+void				move_cam_right(t_cams *cam, t_res *res);
 int					mrt_doerr(char *s, char *str, t_scene **t);
 void				mrt_clear_win(t_scene **t);
 t_coord				mrt_get_c_screen(t_cams *cam);

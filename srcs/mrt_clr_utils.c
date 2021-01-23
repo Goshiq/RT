@@ -6,14 +6,29 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 14:22:06 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/22 12:41:43 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/23 15:34:53 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+int		compute_cy(t_cy *cy, t_two dd)
+{
+	if ((cy->cap_top == 1) && (vec_scal_vec(dd.c2, cy->n_crd) >= 0))
+		return (1);
+	if (!cy->cap_top && (vec_scal_vec(dd.c2, cy->n_crd) <= 0))
+		return (1);
+	if (cy->cap_top == -1)
+		return (1);
+	return (0);
+}
+
 int		check_ans(t_scene **t, t_ans *ans, t_ans *shad, t_two dd)
 {
+	if (ans->fig->type == CY)
+	{
+		return (compute_cy((t_cy *)(ans->fig->data), dd));
+	}
 	if (ans->fig->type == PL)
 		if (vec_scal_vec(dd.c2, ((t_pl *)(ans->fig->data))->n_crd) >= 0)
 			return (1);
