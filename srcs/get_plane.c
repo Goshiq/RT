@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 16:14:06 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/23 19:20:29 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/24 14:04:11 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ int		is_in_plane(t_par par, t_coord d)
 	return (0);
 }
 
-t_coord	get_proec(t_coord d, t_coord dp, t_coord *n, double *dist)
+t_coord	get_proec(t_coord d, t_coord dp, t_coord n, double *dist)
 {
 	t_coord	cs;
 
 	cs = dots_to_vec(d, dp);
-	if (vec_scal_vec(cs, *n) < 0)
-		*n = vec_mult_scal(*n, -1);
-	vec_norm(n);
-	*dist = vec_scal_vec(cs, *n);
-	return (vec_sum(d, vec_mult_scal(*n, *dist)));
+	vec_norm(&n);
+	if (vec_scal_vec(cs, n) < 0)
+		n = vec_mult_scal(n, -1);
+	*dist = fabs(vec_scal_vec(cs, n));
+	return (vec_sum(d, vec_mult_scal(n, *dist)));
 }

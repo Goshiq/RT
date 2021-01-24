@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 10:24:20 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/22 21:43:23 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/24 04:18:52 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_coord	get_n_cy(t_cy *cy, t_coord s)
 	t_coord	ans;
 
 	vec = dots_to_vec(cy->c_crd, s);
-	cos = fabs(vec_scal_vec(cy->n_crd, vec));
+	cos = fabs(vec_scal_vec(cy->n_crd, vec) / vec_len(vec));
 	len = cos * vec_len(vec);
 	vec = vec_sum(cy->c_crd, vec_mult_scal(cy->n_crd, len));
 	ans = dots_to_vec(vec, s);
@@ -46,18 +46,16 @@ t_coord	get_n_cy(t_cy *cy, t_coord s)
 	return (ans);
 }
 
-double	calc_ang_sp(t_ans *ans, t_lght *light)
+double	calc_ang_cy(t_ans *ans, t_lght *light)
 {
 	double	res;
-	t_coord	dl;
 	t_coord	n;
+	t_coord	dl;
 
 	res = 0.0;
-	n = dots_to_vec(((t_sp *)(ans->fig->data))->c_crd, ans->s);
-	vec_norm(&n);
+	n = get_n_cy((t_cy *)(ans->fig->data), ans->s);
 	dl = dots_to_vec(ans->s, light->c_crd);
-	vec_norm(&dl);
-	res = vec_scal_vec(n, dl);
+	res = vec_scal_vec(n, dl) / vec_len(dl);
 	return (res);
 }
 
@@ -77,15 +75,17 @@ double	calc_ang_pl(t_ans *ans, t_lght *light)
 	return (res);
 }
 
-double	calc_ang_cy(t_ans *ans, t_lght *light)
+double	calc_ang_sp(t_ans *ans, t_lght *light)
 {
 	double	res;
-	t_coord	n;
 	t_coord	dl;
+	t_coord	n;
 
 	res = 0.0;
-	n = get_n_cy((t_cy *)(ans->fig->data), ans->s);
+	n = dots_to_vec(((t_sp *)(ans->fig->data))->c_crd, ans->s);
+	vec_norm(&n);
 	dl = dots_to_vec(ans->s, light->c_crd);
-	res = vec_scal_vec(n, dl) / vec_len(dl);
+	vec_norm(&dl);
+	res = vec_scal_vec(n, dl);
 	return (res);
 }
