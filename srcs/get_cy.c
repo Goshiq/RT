@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 14:45:51 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/24 15:37:42 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/24 20:17:49 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int		in_cy(t_cy *cy, t_two d, double dist)
 	tmp = 0.0;
 	n = cy->n_crd;
 	get_proec(vec, cy->top, n, &tmp);
-	if (cy->height > tmp)
+	if (cy->height >= tmp)
 		return (1);
 	return (0);
 }

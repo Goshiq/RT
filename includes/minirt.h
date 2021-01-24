@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:50:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/24 15:26:38 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/24 20:15:33 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,6 +251,7 @@ double				get_angle(t_ans *ans, t_lght *light);
 int					get_clr(t_scene **t, t_coord d);
 t_clr				get_clr_fig(t_ans *ans);
 void				get_corners(t_sq *sq);
+t_coord				get_n_cy(t_cy *cy, t_coord s);
 int					get_next_line(int fd, char **line);
 t_coord				get_proec(t_coord d, t_coord dp, t_coord n, double *dist);
 void				get_scr_param(t_cams *c, t_res *res);
