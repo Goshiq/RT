@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:50:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/24 10:43:43 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/24 15:26:38 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,7 +222,8 @@ int					cross_cap(t_scene **t, t_cy *cy, t_two d, t_ans *ans);
 void				cross_pl(t_scene **t, t_two cd, t_pl *pl, t_ans *ans);
 void				cross_sp(t_scene **t, t_two cd, t_sp *sp, t_ans *ans);
 void				cross_sq(t_scene **t, t_two cd, t_sq *sq, t_ans *ans);
-void				cross_cy(t_scene **t, t_two cd, t_cy *sq, t_ans *ans);
+//void				cross_cy(t_scene **t, t_two cd, t_cy *sq, t_ans *ans);
+void				cross_cy(t_two cd, t_cy *cy, t_ans *ans);
 void				cross_tr(t_scene **t, t_two cd, t_tr *sq, t_ans *ans);
 t_coord				dots_to_vec(t_coord a, t_coord b);
 void				find_cross(t_scene **t, t_two d, t_ans *ans);
@@ -253,6 +254,7 @@ void				get_corners(t_sq *sq);
 int					get_next_line(int fd, char **line);
 t_coord				get_proec(t_coord d, t_coord dp, t_coord n, double *dist);
 void				get_scr_param(t_cams *c, t_res *res);
+int					have_res(double num[3], double *t, double *t1);
 int					in_cy(t_cy *cy, t_two d, double dist);
 int					in_tr(t_coord p, t_tr *tr);
 int					in_sq(t_coord p, t_sq *sq);

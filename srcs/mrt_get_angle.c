@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 10:24:20 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/24 04:18:52 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/24 16:03:46 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ double	calc_ang_cy(t_ans *ans, t_lght *light)
 	res = 0.0;
 	n = get_n_cy((t_cy *)(ans->fig->data), ans->s);
 	dl = dots_to_vec(ans->s, light->c_crd);
-	res = vec_scal_vec(n, dl) / vec_len(dl);
+	res = fabs(vec_scal_vec(n, dl) / vec_len(dl));
 	return (res);
 }
 

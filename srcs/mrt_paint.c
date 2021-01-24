@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 19:26:25 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/23 18:07:56 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/24 15:19:03 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ void	recognize_figs(t_scene **t, t_two d, t_figs *fig, t_ans *ans)
 	if (fig->type == PL)
 		cross_pl(t, d, (t_pl *)(fig->data), ans);
 	if (fig->type == CY)
-		cross_cy(t, d, (t_cy *)(fig->data), ans);
+	{
+		cross_cy(d, (t_cy *)(fig->data), ans);
+		if (ans->d < INFINITY)
+			ans->s = vec_sum(d.c1, vec_mult_scal(d.c2, ans->d));
+	}
 	if (fig->type == SQ)
 		cross_sq(t, d, (t_sq *)(fig->data), ans);
 	if (fig->type == TR)

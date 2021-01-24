@@ -6,70 +6,63 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 04:34:34 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/24 07:11:01 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/24 15:39:05 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-/*
-void	pierce_cy(t_two d, t_cy *cy, t_ans *ans, double num[6])
+void	control(double *t, t_cy *cy, t_two d)
 {
 	t_coord	vec[2];
-	t_pl	*pl;
-	double	dist;
 
-	dist = INFINITY;
-	pl = malloc(sizeof(t_pl));
-	init_pl(&pl);
-	if (num[4] >= 0 && ans->d > num[4])
-		dist = num[4];
-	if (num[5] >= 0 && ans->d > num[5])
-		dist = num[5];
-	if (dist == INFINITY)
-		return ;
-	vec_norm(&(d.c2));
-	vec[0] = vec_sum(d.c1, vec_mult_scal(d.c2, dist));
-	vec[1] = cy->n_crd;
-	pl->n_crd = cy->n_crd;
-	pl->c_crd = cy->c_crd;
-		ans->d = INFINITY;
-	cross_cap(cy, pl, vec, ans);
-	if (ans->d < cy->height / 2)
-	{
-		ans->d = dist;
-		ans->s = vec_sum(d.c1, vec_mult_scal(d.c2, dist));
-	}
-	vec[1] = vec_mult_scal(cy->n_crd, -1);
-	cross_cap(cy, pl, vec, ans);
-	if (ans->d < cy->height / 2)
-	{
-		ans->d = dist;
-		ans->s = vec_sum(d.c1, vec_mult_scal(d.c2, dist));
-	}
+	vec[0] = vec_sum(cy->c_crd, vec_mult_scal(cy->n_crd, cy->height));
+	vec[1] = vec_sum(d.c1, vec_mult_scal(d.c2, *t));
+	if (vec_scal_vec(cy->n_crd, vec_substr(vec[1], cy->c_crd)) <= 0)
+		*t = -1;
+	if (vec_scal_vec(cy->n_crd, vec_substr(vec[1], vec[0])) >= 0)
+		*t = -1;
 }
 
-void	cross_cy(t_scene **t, t_two d, t_cy *cy, t_ans *ans)
+int		solve_cy(double *t, double *t1, t_cy *cy, t_two d)
 {
-	double	num[6];
-	t_coord	vec[5];
+	t_coord	vec[2];
+	double	num[3];
 
-	(void)t;
-	vec[0] = vec_mult_vec(d.c2, cy->n_crd);
-	vec[1] = dots_to_vec(d.c1, cy->c_crd);
-	vec[2] = vec_mult_vec(vec[1], cy->n_crd);
-	vec[3] = d.c1;
-	vec[4] = d.c2;
+	vec[0] = vec_substr(d.c2, vec_mult_scal(cy->n_crd,
+								vec_scal_vec(d.c2, cy->n_crd)));
 	num[0] = vec_scal_vec(vec[0], vec[0]);
-	num[1] = vec_scal_vec(vec[0], vec[2]) * 2;
-	num[2] = vec_scal_vec(vec[2], vec[2]) - pow(cy->diam / 2, 2) *
-											vec_scal_vec(cy->n_crd, cy->n_crd);
-	num[3] = pow(num[1], 2) - 4 * num[0] * num[2];
-	if (num[3] < 0)
+	vec[1] = vec_substr(vec_substr(d.c1, cy->c_crd), vec_mult_scal(cy->n_crd,
+				vec_scal_vec(vec_substr(d.c1, cy->c_crd), cy->n_crd)));
+	num[1] = 2 * vec_scal_vec(vec[0], vec[1]);
+	num[2] = vec_scal_vec(vec[1], vec[1]) - (cy->diam * cy->diam / 4);
+	if (!have_res(num, t, t1))
+		return (0);
+	return (1);
+}
+
+void	cross_cy(t_two d, t_cy *cy, t_ans *ans)
+{
+	double	t[2];
+
+	if (!solve_cy(&t[0], &t[1], cy, d))
 		return ;
-	num[0] = 2 * num[0];
-	num[3] = sqrt(num[3]);
-	num[4] = (-num[1] - num[3]) / num[0];
-	num[5] = (-num[1] + num[3]) / num[0];
-	pierce_cy(d, cy, ans, num);
-}*/
+	if (t[0] > 0)
+		control(&t[0], cy, d);
+	if (t[1] > 0)
+		control(&t[1], cy, d);
+	if (t[0] < 0 && t[1] < 0)
+		return ;
+	if (t[1] < t[0])
+		if (t[1] > 0)
+			ans->d = t[1];
+		else
+			ans->d = t[0];
+	else
+	{
+		if (t[0] > 0)
+			ans->d = t[0];
+		else
+			ans->d = t[1];
+	}
+}

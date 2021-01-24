@@ -6,28 +6,11 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 14:45:51 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/24 11:30:10 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/24 15:37:42 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-/*
-void	cross_cap(t_cy *cy, t_pl *pl, t_coord vec[2], t_ans *ans)
-{
-	double	num[3];
-
-	(void)cy;
-	num[0] = vec_scal_vec(dots_to_vec(vec[0], pl->c_crd), pl->n_crd);
-	num[1] = vec_scal_vec(vec[1], pl->n_crd);
-	if (num[1] == 0 || (num[0] > 0 && num[1] > 0) || (num[0] < 0 && num[1] < 0))
-		return ;
-	num[2] = -num[0] / num[1];
-	if (num[2] < 0 || ans->d < num[2])
-		return ;
-	ans->d = num[2];
-}
-*/
 
 t_ans	*check_pl(t_scene **t, t_pl *pl, t_two d, t_cy *cy)
 {

@@ -6,29 +6,25 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 14:22:06 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/24 08:57:58 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/24 16:31:44 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int		compute_cy(t_cy *cy, t_two dd)
+int		control_cy(t_scene **t, t_two dd, t_cy *cy, t_ans *ans)
 {
-	if ((cy->cap_top == 1) && (vec_scal_vec(dd.c2, cy->n_crd) >= 0))
-		return (1);
-	if (!cy->cap_top && (vec_scal_vec(dd.c2, cy->n_crd) <= 0))
-		return (1);
-	if (cy->cap_top == -1)
+	(void)dd;
+	if (vec_scal_vec(dots_to_vec((*t)->cams->c_crd, ans->s), cy->n_crd) <= 0)
 		return (1);
 	return (0);
 }
 
 int		check_ans(t_scene **t, t_ans *ans, t_ans *shad, t_two dd)
 {
-	if (ans->fig->type == CY)
-		if (vec_scal_vec(dots_to_vec((*t)->cams->c_crd, ans->s),
-					((t_cy *)(ans->fig->data))->n_crd) >= 0)
-			return (1);
+	//if (ans->fig->type == CY)
+	//	return (0);
+	//	return (control_cy(t, dd, (t_cy *)ans->fig->data, ans));
 	if (ans->fig->type == PL)
 		if (vec_scal_vec(dd.c2, ((t_pl *)(ans->fig->data))->n_crd) >= 0)
 			return (1);
@@ -42,7 +38,8 @@ int		check_ans(t_scene **t, t_ans *ans, t_ans *shad, t_two dd)
 		if (vec_scal_vec(dots_to_vec((*t)->cams->c_crd, ans->s),
 			dots_to_vec(((t_sp *)(ans->fig->data))->c_crd, ans->s)) >= 0)
 			return (1);
-	if (shad->d < INFINITY && shad->d < vec_len(dd.c2) && shad->d > MIN)
+	if (shad->d < INFINITY && shad->d < vec_len(dd.c2) && shad->d > MIN &&
+			ans->fig != shad->fig)
 		return (1);
 	return (0);
 }
