@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 16:45:12 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/12 19:19:01 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/25 19:39:25 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_clr	err_col(char **str)
 	return (ans);
 }
 
-t_clr	parse_color(char *s, float br)
+t_clr	parse_color(char *s, float br, t_scene **t)
 {
 	t_clr	ans;
 	int		tmp;
@@ -32,15 +32,15 @@ t_clr	parse_color(char *s, float br)
 		return (ans);
 	if (!clrs[0] || !clrs[1] || !clrs[2] || ft_strlen(s) > 11)
 		return (err_col(clrs));
-	tmp = ft_atoi(clrs[0]);
+	tmp = ft_atoi(clrs[0], t);
 	if (tmp < 0 || tmp > 255)
 		return (err_col(clrs));
 	ans.r = tmp * br;
-	tmp = ft_atoi(clrs[1]);
+	tmp = ft_atoi(clrs[1], t);
 	if (tmp < 0 || tmp > 255)
 		return (err_col(clrs));
 	ans.g = tmp * br;
-	tmp = ft_atoi(clrs[2]);
+	tmp = ft_atoi(clrs[2], t);
 	if (tmp < 0 || tmp > 255)
 		return (err_col(clrs));
 	ans.b = tmp * br;

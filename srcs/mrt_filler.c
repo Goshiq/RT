@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:26:04 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/22 11:23:58 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/25 19:50:17 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	set_res(t_scene **t, char **s)
 		mrt_doerr("Wrong input resolution format\n", 0x0, t);
 	if (check_atoi(s[1]) || check_atoi(s[2]))
 		mrt_doerr("Wrong input resolution format\n", 0x0, t);
-	gotx = ft_atoi(s[1]);
-	goty = ft_atoi(s[2]);
+	gotx = ft_atoi(s[1], t);
+	goty = ft_atoi(s[2], t);
 	if (gotx <= 0 || goty <= 0 || s[3])
 		mrt_doerr("Wrong input resolution format\n", 0x0, t);
 	mlx_get_screen_size((*t)->m_mlx, &resx, &resy);
@@ -51,7 +51,7 @@ void	set_alght(t_scene **t, char **s)
 	if (br < 0 || br > 1)
 		mrt_doerr("Wrong ambient lightning brightness:\n", s[1], t);
 	(*t)->alght->bright = br;
-	clr = parse_color(s[2], br);
+	clr = parse_color(s[2], br, t);
 	if (0 > clr.r)
 		mrt_doerr("Wrong ambient lightning color:\n", s[2], t);
 	(*t)->alght->clr = clr;
@@ -63,11 +63,11 @@ void	add_cam(t_scene **t, char **s)
 		mrt_doerr("Wrong input camera format\n", 0x0, t);
 	if (0 > (*t)->cams->fov)
 	{
-		if (0 > (parse_coord(&((*t)->cams->c_crd), s[1])))
+		if (0 > (parse_coord(&((*t)->cams->c_crd), s[1], t)))
 			mrt_doerr("Wrong camera's coordinates format:\n", s[1], t);
-		if (0 > (parse_orient(&((*t)->cams->n_crd), s[2])))
+		if (0 > (parse_orient(&((*t)->cams->n_crd), s[2], t)))
 			mrt_doerr("Wrong camera's orientation format:\n", s[2], t);
-		if (0 > (parse_fov(&((*t)->cams->fov), s[3])))
+		if (0 > (parse_fov(&((*t)->cams->fov), s[3], t)))
 			mrt_doerr("Wrong camera's FOV format:\n", s[3], t);
 		get_scr_param((*t)->cams, (*t)->res);
 		(*t)->cams->next = (*t)->cams;
@@ -86,13 +86,13 @@ void	add_lght(t_scene **t, char **s)
 		mrt_doerr("Wrong input light format\n", 0x0, t);
 	if (0 > (*t)->lghts->bright)
 	{
-		if (0 > (parse_coord(&((*t)->lghts->c_crd), s[1])))
+		if (0 > (parse_coord(&((*t)->lghts->c_crd), s[1], t)))
 			mrt_doerr("Wrong light's coordinates format:\n", s[1], t);
 		br = atof(s[2]);
 		if (br < 0 || br > 1)
 			mrt_doerr("Wrong light brightness:\n", s[2], t);
 		(*t)->lghts->bright = br;
-		clr = parse_color(s[3], br);
+		clr = parse_color(s[3], br, t);
 		if (0 > clr.r)
 			mrt_doerr("Wrong light color:\n", s[3], t);
 		(*t)->lghts->clr = clr;

@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:50:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/25 18:56:46 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/25 19:49:35 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,8 +231,8 @@ void				free_lst(t_scene **t);
 void				free_ans(t_ans **ans);
 int					free_split(char **s);
 int					free_str(char *s1, char *s2);
-double				ft_atof(char *s);
-int					ft_atoi(char *s);
+double				ft_atof(char *s, t_scene **t);
+int					ft_atoi(char *s, t_scene **t);
 int					ft_isdigit(char c);
 void				ft_figadd_back(t_scene **t, void *fig, t_type type);
 void				ft_lstadd_back(t_lst **ptr, void *p, t_scene **t);
@@ -289,11 +289,11 @@ void				mrt_malloc(void **p, t_mall type, t_scene **t);
 int					mrt_parse_scene(char *s, int save);
 void				mrt_paint(t_scene **t, int save);
 void				mrt_saver(t_scene **t, t_doub xy, int clr);
-t_clr				parse_color(char *s, float br);
-int					parse_coord(t_coord *c, char *s);
+t_clr				parse_color(char *s, float br, t_scene **t);
+int					parse_coord(t_coord *c, char *s, t_scene **t);
 void				parse_cy(t_scene **t, char **s);
-int					parse_fov(int *fov, char *s);
-int					parse_orient(t_coord *c, char *s);
+int					parse_fov(int *fov, char *s, t_scene **t);
+int					parse_orient(t_coord *c, char *s, t_scene **t);
 void				parse_pl(t_scene **t, char **s);
 void				parse_sp(t_scene **t, char **s);
 void				parse_sq(t_scene **t, char **s);

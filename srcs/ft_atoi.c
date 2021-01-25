@@ -6,17 +6,18 @@
 /*   By: jmogo <jmogo@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 19:06:25 by jmogo             #+#    #+#             */
-/*   Updated: 2020/12/06 11:33:13 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/25 20:19:31 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	ft_atoi(char *s)
+int	ft_atoi(char *s, t_scene **t)
 {
 	int			minus;
 	int			ans;
 
+	(void)t;
 	ans = 0;
 	minus = 1;
 	if (!s)

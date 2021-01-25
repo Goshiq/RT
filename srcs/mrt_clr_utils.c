@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 14:22:06 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/25 18:56:40 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/25 20:26:23 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ int		control_cy(t_scene **t, t_two dd, t_ans *ans, t_ans *shad)
 	(void)shad;
 	cy = (t_cy *)ans->fig->data;
 	n = get_n_cy(cy, ans->s);
+	if (vec_scal_vec(dots_to_vec((*t)->cams->c_crd, ans->s), n) > 0 &&
+			vec_scal_vec(n, dd.c2))
+		return (1);
 	if (vec_scal_vec(n, dd.c2) <= 0)
 		return (1);
 	return (0);

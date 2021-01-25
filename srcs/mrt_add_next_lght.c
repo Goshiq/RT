@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 11:44:05 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/15 13:42:17 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/25 19:47:45 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void	add_next_lght(t_scene **t, char **s)
 
 	lght = 0x0;
 	mrt_malloc((void **)(&lght), LGHTS, t);
-	if (0 > (parse_coord(&(lght->c_crd), s[1])))
+	if (0 > (parse_coord(&(lght->c_crd), s[1], t)))
 		mrt_doerr("Wrong light's coordinates format:\n", s[1], t);
 	br = atof(s[2]);
 	if (br < 0 || br > 1)
 		mrt_doerr("Wrong a light brightness:\n", s[2], t);
 	lght->bright = br;
-	clr = parse_color(s[3], br);
+	clr = parse_color(s[3], br, t);
 	if (0 > clr.r)
 		mrt_doerr("Wrong a light color:\n", s[3], t);
 	lght->clr = clr;
