@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 16:50:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/01/24 20:15:33 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/01/25 18:56:46 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <unistd.h>
 # include <stdarg.h>
 
-# define MIN 0.005
+# define MIN 0.0005
 # define COEF 4
 # define SCREEN "screenshot.bmp"
 # define TRATE 30
@@ -217,12 +217,10 @@ int					check_atoi(char *s);
 int					check_figs(char *s, t_type *type);
 int					check_file(char *s);
 void				check_n_tr(t_two d, t_coord *n, t_tr *tr);
-//void				cross_cap(t_cy *cy, t_pl *pl, t_coord vec[2], t_ans *ans);
 int					cross_cap(t_scene **t, t_cy *cy, t_two d, t_ans *ans);
 void				cross_pl(t_scene **t, t_two cd, t_pl *pl, t_ans *ans);
 void				cross_sp(t_scene **t, t_two cd, t_sp *sp, t_ans *ans);
 void				cross_sq(t_scene **t, t_two cd, t_sq *sq, t_ans *ans);
-//void				cross_cy(t_scene **t, t_two cd, t_cy *sq, t_ans *ans);
 void				cross_cy(t_two cd, t_cy *cy, t_ans *ans);
 void				cross_tr(t_scene **t, t_two cd, t_tr *sq, t_ans *ans);
 t_coord				dots_to_vec(t_coord a, t_coord b);
@@ -259,6 +257,7 @@ int					have_res(double num[3], double *t, double *t1);
 int					in_cy(t_cy *cy, t_two d, double dist);
 int					in_tr(t_coord p, t_tr *tr);
 int					in_sq(t_coord p, t_sq *sq);
+int					in_sp(t_sp *sp, t_coord d);
 void				init_alght(t_lght **t);
 void				init_cams(t_cams **t);
 void				init_figs(t_figs **t);
@@ -316,5 +315,6 @@ void				vec_norm(t_coord *v);
 double				vec_scal_vec(t_coord v1, t_coord v2);
 t_coord				vec_substr(t_coord v1, t_coord v2);
 t_coord				vec_sum(t_coord v1, t_coord v2);
+void				wrap_dd(t_two *dd, t_ans *ans, t_lght *light, t_ans *shad);
 
 #endif

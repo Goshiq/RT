@@ -6,7 +6,7 @@
 #    By: jmogo <jmogo@student.21-school.ru>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/30 14:15:15 by jmogo             #+#    #+#              #
-#    Updated: 2021/01/21 17:10:31 by jmogo            ###   ########.fr        #
+#    Updated: 2021/01/25 18:59:28 by jmogo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ RM		= rm -f
 MLX		= libmlx.dylib
 
 SRCS	= 	check_file.c\
+			cross_cy.c\
 			finish_it.c\
 			free_split.c\
 			ft_atof.c\
@@ -38,9 +39,14 @@ SRCS	= 	check_file.c\
 			ft_num_utils.c\
 			ft_split.c\
 			get_clr_fig.c\
+			get_cy.c\
 			get_next_line.c\
 			get_next_line_utils.c\
+			get_plane.c\
+			get_sq.c\
 			get_tr.c\
+			have_res.c\
+			in_figs.c\
 			main.c\
 			manage_loop.c\
 			mrt_add_next_cam.c\
@@ -68,7 +74,9 @@ SRCS	= 	check_file.c\
 			mrt_saver.c\
 			mrt_utils.c\
 			mrt_vector_operations.c\
-			mrt_vector_utils.c
+			mrt_vector_utils.c\
+			validate_scene.c\
+			wrappers.c
 
 vpath %.c	$(DIR)
 vpath %.o	$(DIR)
