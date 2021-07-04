@@ -1,5 +1,5 @@
 # RT
-A ray-tracing 3D-engine
+A ray-tracing 3D-engine for macOS
 
 Clone and compile:
 ```C
